@@ -14,7 +14,7 @@ export const products: Product[] = [
     description: 'A traditional blend of spices from the coastal region of Karnataka, perfect for making the famous Chicken Ghee Roast. Made with roasted red chillies and a secret mix of aromatic spices, this masala brings the authentic taste of Tulunadu to your kitchen.',
     short_description: 'Spicy and aromatic blend for authentic Ghee Roast.',
     images: ['product-1-1', 'product-1-2'],
-    brand: 'Tulunadu Flavors',
+    brand: 'Karavali Flavors',
     gst_rate: 5,
   },
   {
@@ -60,7 +60,7 @@ export const products: Product[] = [
     description: 'Crispy, savory chips made from ripe jackfruit, deep-fried in pure coconut oil. A healthy and delicious snack that captures the essence of coastal flavors.',
     short_description: 'Savory and crispy chips made from ripe jackfruit.',
     images: ['product-4-1'],
-    brand: 'Tulunadu Crunch',
+    brand: 'Karavali Crunch',
     gst_rate: 12,
   },
   {
@@ -91,7 +91,7 @@ export const products: Product[] = [
     description: 'Thinly sliced Nendran bananas fried to perfection in coconut oil and sprinkled with a spicy masala mix. An irresistible snack for any time of the day.',
     short_description: 'Crispy Nendran banana chips with a spicy kick.',
     images: ['product-6-1'],
-    brand: 'Tulunadu Crunch',
+    brand: 'Karavali Crunch',
     gst_rate: 12,
   },
   {
@@ -166,7 +166,7 @@ export const products: Product[] = [
     description: 'Exquisitely carved Ganesha idol from authentic sandalwood. A piece of art that brings peace and prosperity to your home.',
     short_description: 'Hand-carved authentic sandalwood Ganesha.',
     images: ['product-11-1'],
-    brand: 'Tulu Crafts',
+    brand: 'Karavali Crafts',
     gst_rate: 12,
   },
   {
@@ -181,7 +181,7 @@ export const products: Product[] = [
     description: 'A beautiful, eco-friendly terracotta pot, handcrafted by local potters. Ideal for planting or as a decorative piece.',
     short_description: 'Eco-friendly, handcrafted decorative pot.',
     images: ['product-12-1'],
-    brand: 'Tulu Crafts',
+    brand: 'Karavali Crafts',
     gst_rate: 5,
   },
 ];

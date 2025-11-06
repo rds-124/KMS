@@ -7,7 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tulunadu E-Store",
+  title: "Karavali Store",
   description: "Authentic products from the heart of Tulunadu.",
 };
 

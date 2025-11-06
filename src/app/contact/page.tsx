@@ -11,7 +11,7 @@ export default function ContactPage() {
 
   const contactDetails = [
     { icon: Phone, text: '+91 12345 67890', href: 'tel:+911234567890' },
-    { icon: Mail, text: 'support@tulunadustore.com', href: 'mailto:support@tulunadustore.com' },
+    { icon: Mail, text: 'support@karavalistore.com', href: 'mailto:support@karavalistore.com' },
     { icon: MapPin, text: '123 Temple Road, Mangalore, Karnataka 575001' },
     { icon: Clock, text: 'Mon - Sat: 10:00 AM - 6:00 PM IST' },
   ];
