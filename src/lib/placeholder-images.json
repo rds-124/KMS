@@ -1,3 +1,124 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "Lush green landscape of Tulunadu region.",
+      "imageUrl": "https://images.unsplash.com/photo-1610552050890-fe99536c2615?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxsYW5kc2NhcGUlMjBuYXR1cmV8ZW58MHx8fHwxNzYyMzg2NDYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "landscape nature"
+    },
+    {
+      "id": "category-spices",
+      "description": "A variety of colorful Indian spices.",
+      "imageUrl": "https://images.unsplash.com/photo-1658375605267-4c7ddb4915b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzcGljZXMlMjBtYXJrZXR8ZW58MHx8fHwxNzYyNDA3OTkxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spices market"
+    },
+    {
+      "id": "category-pickles",
+      "description": "Jars of homemade pickles.",
+      "imageUrl": "https://images.unsplash.com/photo-1621378580694-07ed748ce085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8cGlja2xlcyUyMGphcnN8ZW58MHx8fHwxNzYyNDA3OTkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "pickles jars"
+    },
+    {
+      "id": "category-snacks",
+      "description": "Traditional Indian snacks.",
+      "imageUrl": "https://images.unsplash.com/photo-1697155836252-d7f969108b5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxpbmRpYW4lMjBzbmFja3N8ZW58MHx8fHwxNzYyMzQ4MjE3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "indian snacks"
+    },
+    {
+      "id": "category-handicrafts",
+      "description": "Handmade crafts.",
+      "imageUrl": "https://images.unsplash.com/photo-1626207170012-718f97da4480?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxoYW5kbWFkZSUyMGNyYWZ0c3xlbnwwfHx8fDE3NjIzMzI2MDN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "handmade crafts"
+    },
+    {
+      "id": "product-1-1",
+      "description": "Ghee Roast Masala",
+      "imageUrl": "https://images.unsplash.com/photo-1710857389305-5cba9211033f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYXNhbGElMjBwb3dkZXJ8ZW58MHx8fHwxNzYyNDA3OTkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "masala powder"
+    },
+    {
+      "id": "product-1-2",
+      "description": "Ghee Roast Masala package",
+      "imageUrl": "https://images.unsplash.com/photo-1757845082207-91cbc4d25f1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzcGljZSUyMHBhY2thZ2luZ3xlbnwwfHx8fDE3NjI0MDc5OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "spice packaging"
+    },
+    {
+      "id": "product-2-1",
+      "description": "Kundapur Masala Powder",
+      "imageUrl": "https://images.unsplash.com/photo-1704650312022-ed1a76dbed1b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxtYXNhbGElMjBwb3dkZXJ8ZW58MHx8fHwxNzYyNDA3OTkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "masala powder"
+    },
+    {
+      "id": "product-3-1",
+      "description": "Mango Pickle",
+      "imageUrl": "https://images.unsplash.com/photo-1664791461482-79f5deee490f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxtYW5nbyUyMHBpY2tsZXxlbnwwfHx8fDE3NjIzMjYzODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mango pickle"
+    },
+    {
+      "id": "product-4-1",
+      "description": "Jackfruit Chips",
+      "imageUrl": "https://images.unsplash.com/photo-1730311822775-6586cea46514?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxmcnVpdCUyMGNoaXBzfGVufDB8fHx8MTc2MjQwNzk5MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "fruit chips"
+    },
+    {
+      "id": "product-5-1",
+      "description": "Red Rice",
+      "imageUrl": "https://images.unsplash.com/photo-1675150303909-1bb94e33132f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxyZWQlMjByaWNlfGVufDB8fHx8MTc2MjQwNzk5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "red rice"
+    },
+    {
+      "id": "product-6-1",
+      "description": "Banana Chips",
+      "imageUrl": "https://images.unsplash.com/photo-1619028005538-db42565dd583?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxiYW5hbmElMjBjaGlwc3xlbnwwfHx8fDE3NjI0MDc5OTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "banana chips"
+    },
+    {
+      "id": "product-7-1",
+      "description": "Cashew Nuts",
+      "imageUrl": "https://images.unsplash.com/photo-1726771517475-e7acdd34cd8a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjYXNoZXclMjBudXRzfGVufDB8fHx8MTc2MjQwNzk5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cashew nuts"
+    },
+    {
+      "id": "product-8-1",
+      "description": "Jaggery",
+      "imageUrl": "https://images.unsplash.com/photo-1755288271423-462a0808deb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxqYWdnZXJ5JTIwYmxvY2t8ZW58MHx8fHwxNzYyNDA3OTkwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "jaggery block"
+    },
+    {
+      "id": "product-9-1",
+      "description": "Coconut Oil",
+      "imageUrl": "https://images.unsplash.com/photo-1588413333412-82148535db53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2NvbnV0JTIwb2lsfGVufDB8fHx8MTc2MjQwNzk5MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "coconut oil"
+    },
+    {
+      "id": "product-10-1",
+      "description": "Appe Midi Pickle",
+      "imageUrl": "https://images.unsplash.com/photo-1663136618135-d11b4dbd22c7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxtYW5nbyUyMHBpY2tsZXxlbnwwfHx8fDE3NjIzMjYzODF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mango pickle"
+    },
+    {
+      "id": "product-11-1",
+      "description": "Sandalwood Idol",
+      "imageUrl": "https://images.unsplash.com/photo-1598581415509-af28687de862?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx3b29kJTIwY2FydmluZ3xlbnwwfHx8fDE3NjIzNTQwMzJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wood carving"
+    },
+    {
+      "id": "product-12-1",
+      "description": "Terracotta Pot",
+      "imageUrl": "https://images.unsplash.com/photo-1644329143625-102b6cb510b0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHx0ZXJyYWNvdHRhJTIwcG90fGVufDB8fHx8MTc2MjM3OTIzNXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "terracotta pot"
+    },
+    {
+      "id": "contact-map",
+      "description": "Map of Mangalore",
+      "imageUrl": "https://images.unsplash.com/photo-1446776899648-aa78eefe8ed0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxjaXR5JTIwbWFwfGVufDB8fHx8MTc2MjM3MDg3OHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "city map"
+    },
+    {
+      "id": "about-us",
+      "description": "About Tulunadu Store",
+      "imageUrl": "https://images.unsplash.com/photo-1550989460-0adf9ea622e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsb2NhbCUyMG1hcmtldHxlbnwwfHx8fDE3NjIzMzA2NTV8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "local market"
+    }
+  ]
 }
