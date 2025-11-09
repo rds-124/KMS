@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { products as allProducts } from '@/lib/products';
@@ -27,6 +27,11 @@ export default function ProductPage() {
   const { addToCart } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const product = allProducts.find((p) => p.sku === sku);
 
@@ -50,6 +55,18 @@ export default function ProductPage() {
       title: "Added to cart",
       description: `${quantity} x ${product.title} has been added.`,
     });
+  };
+
+  const formatPrice = (price: number) => {
+    if (!isClient) {
+      return `₹${price.toFixed(2)}`;
+    }
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(price);
   };
 
   return (
@@ -97,13 +114,13 @@ export default function ProductPage() {
             <span className="text-sm text-muted-foreground">(12 reviews)</span>
           </div>
 
-          <div className="flex items-baseline gap-3">
-            <p className={`text-3xl font-bold ${product.sale_price ? 'text-primary' : ''}`}>
-              ₹{product.sale_price ?? product.price}
+          <div className="flex items-baseline gap-2">
+            <p className={`text-3xl font-bold ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
+              {formatPrice(product.sale_price ?? product.price)}
             </p>
             {product.sale_price && (
-              <p className="text-xl text-muted-foreground line-through">
-                ₹{product.price}
+              <p className="text-xl text-muted-foreground mrp">
+                {formatPrice(product.price)}
               </p>
             )}
             {discount > 0 && <Badge variant="destructive">{discount}% OFF</Badge>}

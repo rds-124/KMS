@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +19,12 @@ type ProductCardProps = {
 export default function ProductCard({ product }: ProductCardProps) {
   const { addToCart } = useCart();
   const { toast } = useToast();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const productImage = PlaceHolderImages.find(p => p.id === product.images[0]);
   const discount = product.sale_price ? Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
 
@@ -29,6 +36,18 @@ export default function ProductCard({ product }: ProductCardProps) {
       title: "Added to cart",
       description: `${product.title} has been added to your cart.`,
     });
+  };
+
+  const formatPrice = (price: number) => {
+    if (!isClient) {
+      return `₹${price.toFixed(2)}`;
+    }
+    return new Intl.NumberFormat("en-IN", {
+      style: "currency",
+      currency: "INR",
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2,
+    }).format(price);
   };
 
   return (
@@ -56,12 +75,12 @@ export default function ProductCard({ product }: ProductCardProps) {
           <div className="p-4 space-y-2">
             <h3 className="font-semibold text-base truncate">{product.title}</h3>
             <div className="flex items-baseline gap-2">
-              <p className={`font-bold text-lg ${product.sale_price ? 'text-primary' : ''}`}>
-                ₹{product.sale_price ?? product.price}
+              <p className={`font-bold text-lg ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
+                {formatPrice(product.sale_price ?? product.price)}
               </p>
               {product.sale_price && (
-                <p className="text-sm text-muted-foreground line-through">
-                  ₹{product.price}
+                <p className="text-sm text-muted-foreground mrp">
+                  {formatPrice(product.price)}
                 </p>
               )}
             </div>

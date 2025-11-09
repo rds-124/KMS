@@ -73,3 +73,14 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .price {
+    font-variant-numeric: tabular-nums;
+  }
+  .mrp {
+    text-decoration: line-through;
+    opacity: 0.6;
+    margin-left: 6px;
+  }
+}
