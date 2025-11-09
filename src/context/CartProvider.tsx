@@ -43,11 +43,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (existingItem) {
         return prevItems.map(item =>
           item.product.sku === product.sku
-            ? { ...item, quantity: item.quantity + quantity }
+            ? { ...item, quantity: Math.min(item.quantity + quantity, product.stock_qty) }
             : item
         );
       }
-      return [...prevItems, { product, quantity }];
+      return [...prevItems, { product, quantity: Math.min(quantity, product.stock_qty) }];
     });
   }, []);
 
@@ -56,8 +56,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
       if (quantity <= 0) {
         return prevItems.filter(item => item.product.sku !== sku);
       }
+      const itemToUpdate = prevItems.find(item => item.product.sku === sku);
+      if (!itemToUpdate) return prevItems;
+      
+      const newQuantity = Math.min(quantity, itemToUpdate.product.stock_qty);
+
       return prevItems.map(item =>
-        item.product.sku === sku ? { ...item, quantity } : item
+        item.product.sku === sku ? { ...item, quantity: newQuantity } : item
       );
     });
   }, []);

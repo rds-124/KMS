@@ -10,32 +10,64 @@ import { useCart } from "@/hooks/use-cart";
 import { useToast } from "@/hooks/use-toast";
 import type { Product } from "@/types";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Plus, Minus } from "lucide-react";
 
 type ProductCardProps = {
   product: Product;
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart } = useCart();
+  const { addToCart, cartItems, updateQuantity } = useCart();
   const { toast } = useToast();
   const [isClient, setIsClient] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+  
+  const cartItem = cartItems.find(item => item.product.sku === product.sku);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+  
+  useEffect(() => {
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    } else {
+      setQuantity(1);
+    }
+  }, [cartItem]);
 
-  const productImage = PlaceHolderImages.find(p => p.id === product.images[0]);
+  const productImage = PlaceHolderImages && PlaceHolderImages.find(p => p.id === product.images[0]);
   const discount = product.sale_price ? Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
+  
+  const isOutOfStock = product.stock_status === 'outofstock';
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(product, 1);
+    addToCart(product, quantity);
     toast({
       title: "Added to cart",
-      description: `${product.title} has been added to your cart.`,
+      description: `${quantity} x ${product.title} has been added.`,
     });
+  };
+
+  const handleQuantityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value, 10);
+    if (value > 0 && value <= product.stock_qty) {
+      setQuantity(value);
+    }
+  };
+
+  const incrementQuantity = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQuantity(prev => Math.min(prev + 1, product.stock_qty));
+  };
+  
+  const decrementQuantity = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setQuantity(prev => Math.max(1, prev - 1));
   };
 
   const formatPrice = (price: number) => {
@@ -51,8 +83,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   };
 
   return (
-    <Card className="w-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
-      <Link href={`/product/${product.sku}`} className="block">
+    <Card className="w-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col">
+      <Link href={`/product/${product.sku}`} className="block flex-grow">
         <CardContent className="p-0">
           <div className="relative">
             {productImage && (
@@ -68,12 +100,12 @@ export default function ProductCard({ product }: ProductCardProps) {
             {discount > 0 && (
               <Badge variant="destructive" className="absolute top-2 left-2">{discount}% OFF</Badge>
             )}
-             {product.stock_status === 'outofstock' && (
+             {isOutOfStock && (
               <Badge variant="secondary" className="absolute top-2 right-2">Out of Stock</Badge>
             )}
           </div>
           <div className="p-4 space-y-2">
-            <h3 className="font-semibold text-base truncate">{product.title}</h3>
+            <h3 className="font-semibold text-base truncate h-6">{product.title}</h3>
             <div className="flex items-baseline gap-2">
               <p className={`font-bold text-lg ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
                 {formatPrice(product.sale_price ?? product.price)}
@@ -87,16 +119,35 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
         </CardContent>
       </Link>
-      <div className="px-4 pb-4">
-        <Button 
-          className="w-full"
-          onClick={handleAddToCart}
-          disabled={product.stock_status === 'outofstock'}
-          variant="outline"
-        >
-          <ShoppingCart className="mr-2 h-4 w-4" />
-          {product.stock_status === 'outofstock' ? 'Out of Stock' : 'Add to Cart'}
-        </Button>
+      <div className="px-4 pb-4 mt-auto">
+        {isOutOfStock ? (
+           <Button 
+              className="w-full"
+              disabled
+              variant="outline"
+            >
+              Out of Stock
+          </Button>
+        ) : cartItem ? (
+          <div className="flex items-center justify-between">
+            <Button variant="outline" size="icon" className="h-9 w-9" onClick={(e) => updateQuantity(product.sku, cartItem.quantity - 1)} aria-label="Decrease quantity">
+              <Minus className="h-4 w-4" />
+            </Button>
+            <span className="font-bold text-lg w-10 text-center">{cartItem.quantity}</span>
+             <Button variant="outline" size="icon" className="h-9 w-9" onClick={(e) => updateQuantity(product.sku, cartItem.quantity + 1)} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+              <Plus className="h-4 w-4" />
+            </Button>
+          </div>
+        ) : (
+          <Button 
+            className="w-full"
+            onClick={handleAddToCart}
+            variant="outline"
+          >
+            <ShoppingCart className="mr-2 h-4 w-4" />
+            Add to Cart
+          </Button>
+        )}
       </div>
     </Card>
   );

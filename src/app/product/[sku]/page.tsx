@@ -24,16 +24,25 @@ import { Card, CardContent } from "@/components/ui/card";
 export default function ProductPage() {
   const params = useParams();
   const { sku } = params;
-  const { addToCart } = useCart();
+  const { addToCart, cartItems, updateQuantity } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [isClient, setIsClient] = useState(false);
+
+  const product = allProducts.find((p) => p.sku === sku);
+  const cartItem = cartItems.find(item => item.product.sku === product?.sku);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const product = allProducts.find((p) => p.sku === sku);
+  useEffect(() => {
+    if (cartItem) {
+      setQuantity(cartItem.quantity);
+    } else {
+      setQuantity(1);
+    }
+  }, [cartItem]);
 
   if (!product) {
     return (
@@ -43,6 +52,7 @@ export default function ProductPage() {
     );
   }
   
+  const isOutOfStock = product.stock_status === 'outofstock';
   const relatedProducts = allProducts.filter(p => p.category === product.category && p.sku !== product.sku).slice(0, 4);
 
   const discount = product.sale_price
@@ -67,6 +77,14 @@ export default function ProductPage() {
       minimumFractionDigits: 0,
       maximumFractionDigits: 2,
     }).format(price);
+  };
+  
+  const handleQuantityUpdate = (newQuantity: number) => {
+    if (newQuantity > 0) {
+      updateQuantity(product.sku, newQuantity);
+    } else {
+      updateQuantity(product.sku, 0); // This will remove the item via the logic in useCart
+    }
   };
 
   return (
@@ -102,7 +120,7 @@ export default function ProductPage() {
         </Carousel>
 
         {/* Product Details */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           <h1 className="text-3xl lg:text-4xl font-headline font-bold">{product.title}</h1>
           
           <div className="flex items-center gap-2">
@@ -130,25 +148,53 @@ export default function ProductPage() {
 
           <Separator />
 
-          <div className="flex items-center gap-4">
-            <div className="flex items-center border rounded-md">
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))}>
-                <Minus className="h-4 w-4" />
-              </Button>
-              <span className="w-12 text-center font-bold">{quantity}</span>
-              <Button variant="ghost" size="icon" onClick={() => setQuantity(quantity + 1)}>
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-            <Button size="lg" className="flex-1" onClick={handleAddToCart} disabled={product.stock_status === 'outofstock'}>
-              <ShoppingCart className="mr-2 h-5 w-5" />
-              {product.stock_status === 'outofstock' ? 'Out of Stock' : 'Add to Cart'}
-            </Button>
+          <div className="space-y-4">
+            {isOutOfStock ? (
+              <Button size="lg" className="w-full" disabled>Out of Stock</Button>
+            ) : cartItem ? (
+              <div className="flex items-center gap-4">
+                <p className='font-semibold'>Quantity:</p>
+                <div className="flex items-center border rounded-md">
+                  <Button variant="ghost" size="icon" onClick={() => handleQuantityUpdate(cartItem.quantity - 1)} aria-label="Decrease quantity">
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span className="w-12 text-center font-bold">{cartItem.quantity}</span>
+                  <Button variant="ghost" size="icon" onClick={() => handleQuantityUpdate(cartItem.quantity + 1)} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center border rounded-md">
+                  <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.max(1, quantity - 1))} aria-label="Decrease quantity">
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <input 
+                    type="number" 
+                    value={quantity}
+                    onChange={(e) => setQuantity(Math.min(Math.max(1, parseInt(e.target.value) || 1), product.stock_qty))}
+                    className="w-12 text-center font-bold bg-transparent border-none focus:ring-0"
+                    aria-label="Quantity"
+                    min="1"
+                    max={product.stock_qty}
+                  />
+                  <Button variant="ghost" size="icon" onClick={() => setQuantity(Math.min(quantity + 1, product.stock_qty))} aria-label="Increase quantity">
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+                <Button size="lg" className="flex-1" onClick={handleAddToCart}>
+                  <ShoppingCart className="mr-2 h-5 w-5" />
+                  Add to Cart
+                </Button>
+              </div>
+            )}
+            
+            {isOutOfStock && (
+                <Button variant="outline" className='w-full'>Notify Me When Available</Button>
+            )}
           </div>
           
-           {product.stock_status === 'outofstock' && (
-              <Button variant="outline" className='w-full'>Notify Me When Available</Button>
-            )}
 
           <Card className="bg-secondary/50">
             <CardContent className="p-4 space-y-2 text-sm">
@@ -173,12 +219,14 @@ export default function ProductPage() {
       </div>
 
       {/* Related Products */}
-      <div className="mt-16">
-        <h2 className="text-3xl font-headline font-bold text-center mb-8">You Might Also Like</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {relatedProducts.map(p => <ProductCard key={p.sku} product={p} />)}
+      {relatedProducts.length > 0 && (
+        <div className="mt-16">
+            <h2 className="text-3xl font-headline font-bold text-center mb-8">You Might Also Like</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {relatedProducts.map(p => <ProductCard key={p.sku} product={p} />)}
+            </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
