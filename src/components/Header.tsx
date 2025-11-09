@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingCart, User, Menu, X } from "lucide-react";
+import { Search, ShoppingCart, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/categories";
 import { useCart } from "@/hooks/use-cart";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   const { cartCount } = useCart();
@@ -83,6 +84,7 @@ export default function Header() {
             <Search className="h-5 w-5" />
             <span className="sr-only">Search</span>
           </Button>
+          <ThemeToggle />
           <Button variant="ghost" size="icon">
             <User className="h-5 w-5" />
             <span className="sr-only">Account</span>
