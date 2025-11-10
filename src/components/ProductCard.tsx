@@ -144,18 +144,18 @@ export default function ProductCard({ product }: ProductCardProps) {
             </Button>
           </div>
         ) : (
-            <div className="flex items-center gap-2">
-                <div className="flex items-center border rounded-md h-8 md:h-9">
+            <div className="flex flex-col md:flex-row items-center md:gap-3 gap-2">
+                <div className="flex items-center border rounded-md h-8 md:h-9 w-full md:w-auto">
                     <Button variant="ghost" size="icon" className="h-full w-8" onClick={decrementQuantity} aria-label="Decrease quantity">
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="font-bold text-sm md:text-base w-6 md:w-8 text-center tabular-nums">{quantity}</span>
+                    <span className="font-bold text-sm md:text-base w-full text-center tabular-nums">{quantity}</span>
                     <Button variant="ghost" size="icon" className="h-full w-8" onClick={incrementQuantity} aria-label="Increase quantity" disabled={quantity >= product.stock_qty}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
                 <Button 
-                    className="w-full flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full h-8 md:h-9 text-sm"
+                    className="w-full flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full h-9 text-sm md:h-9"
                     onClick={handleAddToCart}
                 >
                     Add
