@@ -114,13 +114,13 @@ export default function ProductCard({ product }: ProductCardProps) {
             )}
           </div>
           <div className="p-4 space-y-2">
-            <h3 className="font-semibold text-base truncate h-6">{product.title}</h3>
+            <h3 className="font-semibold text-sm md:text-base min-h-[2.5rem] md:min-h-[2.75rem] line-clamp-2">{product.title}</h3>
             <div className="flex items-baseline gap-2">
-              <p className={`font-bold text-lg ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
+              <p className={`font-bold text-base md:text-lg ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
                 {formatPrice(product.sale_price ?? product.price)}
               </p>
               {product.sale_price && (
-                <p className="text-sm text-muted-foreground mrp">
+                <p className="text-xs md:text-sm text-muted-foreground mrp">
                   {formatPrice(product.price)}
                 </p>
               )}
@@ -130,32 +130,32 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
       <div className="px-4 pb-4 mt-auto">
         {isOutOfStock ? (
-           <Button className="w-full" disabled variant="outline">
+           <Button className="w-full h-8 md:h-10 text-sm" disabled variant="outline">
               Out of Stock
           </Button>
         ) : cartItem ? (
           <div className="flex items-center justify-center">
-            <Button variant="outline" size="icon" className="h-9 w-9" onClick={decrementQuantity} aria-label="Decrease quantity">
+            <Button variant="outline" size="icon" className="h-8 w-8 md:h-9 md:w-9" onClick={decrementQuantity} aria-label="Decrease quantity">
               <Minus className="h-4 w-4" />
             </Button>
-            <span className="font-bold text-lg w-12 text-center tabular-nums">{cartItem.quantity}</span>
-             <Button variant="outline" size="icon" className="h-9 w-9" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+            <span className="font-bold text-base md:text-lg w-10 md:w-12 text-center tabular-nums">{cartItem.quantity}</span>
+             <Button variant="outline" size="icon" className="h-8 w-8 md:h-9 md:w-9" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
               <Plus className="h-4 w-4" />
             </Button>
           </div>
         ) : (
             <div className="flex items-center gap-2">
-                <div className="flex items-center border rounded-md">
-                    <Button variant="ghost" size="icon" className="h-9 w-9" onClick={decrementQuantity} aria-label="Decrease quantity">
+                <div className="flex items-center border rounded-md h-8 md:h-9">
+                    <Button variant="ghost" size="icon" className="h-full w-8" onClick={decrementQuantity} aria-label="Decrease quantity">
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="font-bold text-base w-8 text-center tabular-nums">{quantity}</span>
-                    <Button variant="ghost" size="icon" className="h-9 w-9" onClick={incrementQuantity} aria-label="Increase quantity" disabled={quantity >= product.stock_qty}>
+                    <span className="font-bold text-sm md:text-base w-6 md:w-8 text-center tabular-nums">{quantity}</span>
+                    <Button variant="ghost" size="icon" className="h-full w-8" onClick={incrementQuantity} aria-label="Increase quantity" disabled={quantity >= product.stock_qty}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
                 <Button 
-                    className="w-full flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full"
+                    className="w-full flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full h-8 md:h-9 text-sm"
                     onClick={handleAddToCart}
                 >
                     Add

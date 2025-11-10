@@ -56,7 +56,7 @@ export default function CategoryPage() {
       case 'price-asc':
         return priceA - priceB;
       case 'price-desc':
-        return priceB - priceA;
+        return priceB - a.price;
       case 'title-asc':
         return a.title.localeCompare(b.title);
       case 'title-desc':
@@ -139,7 +139,7 @@ export default function CategoryPage() {
         {/* Products Grid */}
         <main className="md:col-span-3">
           {sortedProducts.length > 0 ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
               {sortedProducts.map((product) => (
                 <ProductCard key={product.sku} product={product} />
               ))}
