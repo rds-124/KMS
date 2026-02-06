@@ -84,9 +84,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     <Card className="group w-full flex flex-col h-full bg-background rounded-3xl shadow-md overflow-hidden transition-all duration-300 text-center hover:shadow-xl">
       
       {/* The linkable area containing the product image and details. It grows to fill available space. */}
-      <Link href={`/product/${product.sku}`} className="flex flex-col flex-grow p-4">
+      <Link href={`/product/${product.sku}`} className="flex flex-col flex-grow">
         
         {/* Product Image Section */}
+        {/* The image is set to cover its container, ensuring a uniform and larger look. */}
+        {/* The card's `overflow-hidden` and `rounded-3xl` will give the image its curvy look. */}
         <div className="relative w-full">
           {productImage && (
             <Image
@@ -94,7 +96,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               alt={product.title}
               width={400}
               height={400}
-              className="aspect-square w-full object-contain"
+              className="aspect-square w-full object-cover" // Changed from object-contain
               data-ai-hint={productImage.imageHint}
             />
           )}
@@ -103,18 +105,18 @@ export default function ProductCard({ product }: ProductCardProps) {
           )}
         </div>
         
-        {/* Product Details Section: uses flex-grow to push price to the bottom of this section. */}
-        <div className="flex flex-col flex-grow mt-2">
+        {/* Product Details Section: uses flex-grow to push price to the bottom of this section. Padding is added here instead of the Link. */}
+        <div className="flex flex-col flex-grow mt-2 p-4">
             <h3 className="font-semibold text-lg line-clamp-2">{product.title}</h3>
-            {product.weight && <p className="text-muted-foreground text-sm">{product.weight}</p>}
+            {/* Weight has been removed as requested. */}
             
-            {/* Price section pushed to the bottom via mt-auto */}
-            <div className="mt-auto pt-2">
-                <p className={`font-bold text-2xl price`}>
+            {/* Price section pushed to the bottom. Prices are now on the same line. */}
+            <div className="mt-auto pt-2 flex items-baseline justify-center gap-2">
+                <p className={`font-bold text-lg price`}>
                     ₹{product.sale_price ?? product.price}
                 </p>
                 {product.sale_price && (
-                    <p className="text-sm text-muted-foreground mrp">
+                    <p className="text-xs text-muted-foreground mrp">
                         ₹{product.price}
                     </p>
                 )}
