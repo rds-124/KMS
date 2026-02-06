@@ -185,6 +185,12 @@
       "description": "Neer Dosa",
       "imageUrl": "https://images.unsplash.com/photo-1686820740687-426a7b9b2043?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxyaWNlJTIwY3JlcGV8ZW58MHx8fHwxNzYyNjgwNjYwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "rice crepe"
+    },
+    {
+      "id": "about-us-farm-bg",
+      "description": "A lush green farm landscape with rolling hills.",
+      "imageUrl": "https://images.unsplash.com/photo-1444930694458-01babf71872c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxmYXJtJTIwbGFuZHNjYXBlfGVufDB8fHx8MTc3MDM3NTQ0MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "farm landscape"
     }
   ]
 }

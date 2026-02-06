@@ -28,6 +28,7 @@ export default function Home() {
   ];
 
   const aboutShopImage = PlaceHolderImages.find(p => p.id === 'about-shop');
+  const aboutUsFarmBgImage = PlaceHolderImages.find(p => p.id === 'about-us-farm-bg');
 
 
   return (
@@ -122,9 +123,18 @@ export default function Home() {
         <div className="container mx-auto px-4 py-12 md:py-20 space-y-12 md:space-y-20">
 
           {/* About Us Teaser Section */}
-          {/* This card now sits on top of the new background. We use `bg-background` to make it pop, and a larger shadow. */}
-          <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* This card has a semi-transparent background image to create a textured, premium feel. */}
+          <div className="bg-lime-50 dark:bg-lime-950/20 rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
+            {aboutUsFarmBgImage && (
+                <Image
+                    src={aboutUsFarmBgImage.imageUrl}
+                    alt={aboutUsFarmBgImage.description}
+                    fill
+                    className="object-cover opacity-10 dark:opacity-20"
+                    data-ai-hint={aboutUsFarmBgImage.imageHint}
+                />
+            )}
+            <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
               {/* Text Content */}
               <div className="text-center md:text-left">
                 <h2 className="text-3xl md:text-4xl font-headline font-bold">
