@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Smile, Leaf, Users, ShieldCheck, Truck, Package, CreditCard } from "lucide-react";
+import { Smile, Leaf, Users, ShieldCheck, Truck, Package, CreditCard, MapPin, Clock, PhoneCall, CheckCircle } from "lucide-react";
 import { products } from "@/lib/products";
 import { categories } from "@/lib/categories";
 import ProductCard from "@/components/ProductCard";
@@ -30,7 +30,22 @@ export default function Home() {
 
   const aboutShopImage = PlaceHolderImages.find(p => p.id === 'about-shop');
   const aboutUsFarmBgImage = PlaceHolderImages.find(p => p.id === 'about-us-farm-bg');
+  const ctaSnacksImage = PlaceHolderImages.find(p => p.id === 'cta-snacks');
 
+  const WhatsAppIcon = () => (
+    <svg
+      className="w-6 h-6"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+    >
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.383 1.905 6.195l-1.256 4.595 4.672-1.225z" />
+    </svg>
+  );
+  
+  const phoneNumber = '+911234567890';
+  const message = "Hello! I want to place an order from Karavali Store.";
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
   return (
     <div className="space-y-12 md:space-y-20">
@@ -191,6 +206,60 @@ export default function Home() {
 
         </div>
       </section>
+
+      {/* Final CTA Section */}
+      <section className="container mx-auto px-4 pb-12 md:pb-20">
+        <div className="bg-amber-50/50 dark:bg-amber-900/20 rounded-2xl shadow-lg overflow-hidden">
+            <div className="p-8 md:p-10">
+                <div className="flex justify-center items-center gap-4 mb-8">
+                    <Truck className="w-12 h-12 text-green-800 dark:text-green-300" strokeWidth={1.5} />
+                    <h2 className="text-3xl font-bold text-green-800 dark:text-green-300">Fast & Reliable Delivery</h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-muted-foreground">
+                    <div className="flex flex-col items-center gap-2">
+                        <MapPin className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                        <p className="font-semibold">Delivering in Bangalore<br />& Across Karnataka</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-amber-300/70 dark:sm:border-amber-700/50 px-4">
+                        <Clock className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                        <p className="font-semibold">Orders Dispatched<br />in 24 Hours</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                        <PhoneCall className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                        <p className="font-semibold">24/7 Customer Support</p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="border-t-2 border-dashed border-amber-300/70 dark:border-amber-700/50"></div>
+
+            <div className="grid md:grid-cols-2 items-center">
+                <div className="relative w-full h-64 md:h-full min-h-[300px] order-last md:order-first">
+                    {ctaSnacksImage && (
+                        <Image src={ctaSnacksImage.imageUrl} alt={ctaSnacksImage.description} fill className="object-cover" data-ai-hint={ctaSnacksImage.imageHint} />
+                    )}
+                </div>
+                <div className="p-8 text-center space-y-5">
+                    <h3 className="font-headline text-4xl text-red-800 dark:text-red-400">Experience the Authentic Taste of the Coast!</h3>
+                    <p className="text-xl font-semibold">Order Now & Bring Home the Flavors of Karavali!</p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <Button asChild size="lg" className="bg-red-700 hover:bg-red-800 text-white rounded-lg text-lg px-8 py-6">
+                            <Link href="/category/all">Shop Now</Link>
+                        </Button>
+                        <Button asChild size="lg" className="bg-green-700 hover:bg-green-800 text-white rounded-lg text-lg px-8 py-6">
+                            <Link href={whatsappUrl} target="_blank">
+                                <WhatsAppIcon /> Order on WhatsApp
+                            </Link>
+                        </Button>
+                    </div>
+                    <div className="flex items-center justify-center gap-2 text-yellow-700 dark:text-yellow-400 font-bold pt-4">
+                        <CheckCircle className="w-5 h-5"/>
+                        <span>100% Satisfaction Guaranteed!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
     </div>
   );
 }
