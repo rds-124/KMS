@@ -100,12 +100,12 @@ export default function ProductCard({ product }: ProductCardProps) {
               Out of Stock
           </Button>
         ) : cartItem && cartItem.quantity > 0 ? (
-          <div className="flex items-center justify-between bg-green-600 text-white rounded-lg h-11 w-full px-1">
-            <Button variant="ghost" size="icon" className="h-9 w-9 text-white hover:bg-green-700 hover:text-white rounded-md" onClick={decrementQuantity} aria-label="Decrease quantity">
+          <div className="flex items-center justify-between border rounded-full h-11 w-full">
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full" onClick={decrementQuantity} aria-label="Decrease quantity">
               <Minus className="h-5 w-5" />
             </Button>
             <span className="font-bold text-base w-8 text-center tabular-nums">{cartItem.quantity}</span>
-            <Button variant="ghost" size="icon" className="h-9 w-9 text-white hover:bg-green-700 hover:text-white rounded-md" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+            <Button variant="ghost" size="icon" className="h-9 w-9 rounded-full" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
               <Plus className="h-5 w-5" />
             </Button>
           </div>
