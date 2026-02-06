@@ -1,0 +1,110 @@
+/**
+ * Core Philosophy: This ruleset enforces a strict user-ownership model for personal data (cart, orders)
+ * while providing public read access to the global product catalog. The primary goal is to ensure that
+ * users can only ever access and manage their own information.
+ *
+ * Data Structure:
+ * - /products/{productId}: A public, top-level collection for all product data. It is treated as read-only
+ *   from the client-side to be populated by a trusted backend service.
+ * - /users/{userId}/cart/{cartItemId}: A user-specific subcollection where each user's cart items are
+ *   stored. Access is strictly limited to the authenticated user whose UID matches {userId}.
+ * - /orders/{orderId}: A top-level collection for all orders. This collection is write-protected from the
+ *   client and assumes creation is handled by a backend process. Users can read their own orders, but
+ *   cannot list all orders in the system.
+ *
+ * Key Security Decisions:
+ * - Client-Side Writes are Restricted: All write operations on the global /products and /orders collections
+ *   are disabled. This is a critical security measure that assumes a trusted backend or admin SDK is
+ *   responsible for managing the product catalog and processing orders.
+ * - Strict Data Segregation: A user's private data (cart, orders) is structurally isolated from other
+ *   users' data. Cart items are in a user-owned subcollection (/users/{userId}/...), which is a highly
+ *   secure and performant pattern.
+ * - No User Listing: The rules do not allow for querying or listing the top-level /users collection,
+ *   protecting user privacy.
+ * - Denormalization for Authorization: The rule for reading an order from the /orders collection
+ *   (`allow get`) depends on a `userId` field being present on the order document itself. This is a
+_  *   crucial denormalization step. Without it, there is no secure way to verify that a user is the
+ *   rightful owner of an order document.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions for reusable logic
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Checks if the requesting user's UID matches the document's owner ID from the path.
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    // Ensures a document exists before an update/delete and verifies ownership.
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * @description Publicly readable product catalog. Writes are disabled for clients.
+     * @path /products/{productId}
+     * @allow (get) Any user, signed in or not, can read a product's details.
+     * @deny (create) A signed-in user cannot create a new product document.
+     * @principle A public catalog should be readable by everyone, but writable only by a trusted backend to ensure data integrity.
+     */
+    match /products/{productId} {
+      allow get: if true;
+      allow list: if true;
+      allow create: if false;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    /**
+     * @description Secures a user's private data tree, starting with their cart.
+     * @path /users/{userId}
+     * @allow (get) A user can read their own user document (if it exists).
+     * @deny (list) It is impossible to list all users in the database.
+     * @principle Protects user privacy by preventing enumeration of all users and sandboxing their data.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // Disallow listing all users
+      allow create: if isOwner(userId);
+      allow update: if isExistingOwner(userId);
+      allow delete: if false; // Generally, users should not delete their own root document
+
+      /**
+       * @description A user's shopping cart. Only the user can read or modify their own cart.
+       * @path /users/{userId}/cart/{cartItemId}
+       * @allow (create) A user can add a new item to their own cart.
+       * @deny (create) A user cannot add an item to another user's cart.
+       * @principle Enforces strict data ownership for a user's personal collections.
+       */
+      match /cart/{cartItemId} {
+        allow get: if isOwner(userId);
+        allow list: if isOwner(userId);
+        allow create: if isOwner(userId);
+        allow update: if isExistingOwner(userId);
+        allow delete: if isExistingOwner(userId);
+      }
+    }
+
+    /**
+     * @description Stores all orders. Clients can read their own orders but cannot create, update, or list them.
+     * @path /orders/{orderId}
+     * @allow (get) A user can fetch an order document if their UID is on that document.
+     * @deny (list) A user cannot list all orders in the system, even with a query filter.
+     * @principle Client-side writes are blocked to ensure order integrity. Orders should only be created by a trusted backend service. Individual reads are allowed for owners.
+     */
+    match /orders/{orderId} {
+      // CRITICAL: This rule assumes the 'Order' document contains a 'userId' field that matches the authenticated user's UID.
+      // Without this denormalized field, there is no secure way for a user to read their own order.
+      allow get: if isSignedIn() && isOwner(resource.data.userId);
+      allow list: if false;
+      allow create: if false; // TODO: Order creation must be handled by a trusted server environment (e.g., Cloud Functions).
+      allow update: if false;
+      allow delete: if false;
+    }
+  }
+}

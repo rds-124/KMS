@@ -1,0 +1,298 @@
+{
+  "entities": {
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product in the Tulunadu E-Store catalog.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product entity."
+        },
+        "sku": {
+          "type": "string",
+          "description": "Stock Keeping Unit; a unique identifier for the product."
+        },
+        "title": {
+          "type": "string",
+          "description": "The name of the product."
+        },
+        "category": {
+          "type": "string",
+          "description": "The main category of the product."
+        },
+        "subCategory": {
+          "type": "string",
+          "description": "A more specific sub-category of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "The regular price of the product."
+        },
+        "salePrice": {
+          "type": "number",
+          "description": "The discounted price of the product, if applicable."
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency in which the product is priced."
+        },
+        "weight": {
+          "type": "number",
+          "description": "The weight of the product."
+        },
+        "stockQty": {
+          "type": "number",
+          "description": "The number of units of the product currently in stock."
+        },
+        "stockStatus": {
+          "type": "string",
+          "description": "The current stock status of the product (e.g., in stock, out of stock)."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product."
+        },
+        "shortDescription": {
+          "type": "string",
+          "description": "A brief description of the product."
+        },
+        "images": {
+          "type": "array",
+          "description": "An array of URLs pointing to product images.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "description": "An array of tags associated with the product.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "brand": {
+          "type": "string",
+          "description": "The brand of the product."
+        },
+        "gstRate": {
+          "type": "number",
+          "description": "The GST (Goods and Services Tax) rate applicable to the product."
+        }
+      },
+      "required": [
+        "id",
+        "sku",
+        "title",
+        "category",
+        "price",
+        "stockQty",
+        "stockStatus"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents an order placed in the Tulunadu E-Store.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order entity."
+        },
+        "orderId": {
+          "type": "string",
+          "description": "The unique identifier for the order (external facing)."
+        },
+        "items": {
+          "type": "array",
+          "description": "An array of items included in the order.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "The total price of the items in the order, before shipping and tax."
+        },
+        "shipping": {
+          "type": "number",
+          "description": "The shipping cost for the order."
+        },
+        "tax": {
+          "type": "number",
+          "description": "The tax amount for the order."
+        },
+        "total": {
+          "type": "number",
+          "description": "The total amount of the order, including items, shipping, and tax."
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "The payment status of the order (e.g., pending, paid, failed, COD)."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "The date and time when the order was created.",
+          "format": "date-time"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "The customer's name"
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "The customer's phone number"
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "The customer's email address",
+          "format": "email"
+        },
+        "customerAddress": {
+          "type": "string",
+          "description": "The customer's shipping address."
+        },
+        "shippingMethod": {
+          "type": "string",
+          "description": "The selected shipping method for the order."
+        }
+      },
+      "required": [
+        "id",
+        "orderId",
+        "items",
+        "subtotal",
+        "shipping",
+        "tax",
+        "total",
+        "paymentStatus",
+        "createdAt",
+        "customerName",
+        "customerPhone",
+        "customerEmail",
+        "customerAddress",
+        "shippingMethod"
+      ]
+    },
+    "OrderItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "OrderItem",
+      "type": "object",
+      "description": "Represents an item within an order.",
+      "properties": {
+        "orderId": {
+          "type": "string",
+          "description": "Reference to Order. (Relationship: Order 1:N OrderItem)"
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to Product. (Relationship: Product 1:N OrderItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the product in the order."
+        },
+        "unitPrice": {
+          "type": "number",
+          "description": "The price of a single unit of the product at the time of the order."
+        }
+      },
+      "required": [
+        "orderId",
+        "productId",
+        "quantity",
+        "unitPrice"
+      ]
+    },
+    "CartItem": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "CartItem",
+      "type": "object",
+      "description": "Represents an item in the user's shopping cart.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the cart item entity."
+        },
+        "productId": {
+          "type": "string",
+          "description": "Reference to Product. (Relationship: Product 1:N CartItem)"
+        },
+        "quantity": {
+          "type": "number",
+          "description": "The quantity of the product in the cart."
+        }
+      },
+      "required": [
+        "id",
+        "productId",
+        "quantity"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores product information. Each document represents a product in the catalog.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier for the product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/cart/{cartItemId}",
+        "definition": {
+          "entityName": "CartItem",
+          "schema": {
+            "$ref": "#/backend/entities/CartItem"
+          },
+          "description": "Stores the user's shopping cart items.  Authorization is based on the userId. Each document represents a product in the user's cart.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "cartItemId",
+              "description": "The unique identifier for the cart item."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores order information. Each document represents an order placed by a user.",
+          "params": [
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to support the Tulunadu E-Store application, focusing on product catalog management, shopping cart functionality, and order processing. Key considerations include authorization independence, data clarity, and predictable schema. Products are stored in a top-level `products` collection. User-specific shopping carts are managed in the `users/{userId}/cart` collection to ensure proper isolation and ownership. Orders will be managed using a top level `/orders` collection that relies on server-side validation to ensure data integrity.\n\n*   **Authorization Independence:** The `users/{userId}/cart` collection ensures authorization independence. Security rules can be applied directly to this collection based on `request.auth.uid` without needing to `get()` data from other collections.\n\n*   **QAPs (Queries are not Filters):** Products are stored in a flat `products` collection. Listing products can be done securely using pagination and filtering based on product attributes (category, price range, etc.) within the security rules. User specific cart items are stored in `/users/{userId}/cart` ensuring that a user can only ever see their own cart items.\n\n*   **Invariants:** The structure supports invariants such as ownership (cart items are owned by the user), timestamps (orders have a `createdAt` field managed server-side), and data integrity (server-side validation for orders and stock updates)."
+  }
+}
