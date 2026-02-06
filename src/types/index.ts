@@ -30,8 +30,10 @@ export type SubCategory = {
   imageId: string;
 };
 
-
+// This type is now managed by src/hooks/use-firestore-cart.ts
+// It remains here for other parts of the app that might need the type definition.
 export type CartItem = {
+  id: string; // Firestore document ID
   product: Product;
   quantity: number;
 };

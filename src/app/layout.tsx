@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/toaster";
-import { CartProvider } from "@/context/CartProvider";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { FirebaseClientProvider } from "@/firebase/client-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -31,7 +31,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <CartProvider>
+          <FirebaseClientProvider>
             <div className="flex flex-col min-h-screen">
               <Header />
               <main className="flex-grow">{children}</main>
@@ -39,7 +39,7 @@ export default function RootLayout({
             </div>
             <WhatsAppButton />
             <Toaster />
-          </CartProvider>
+          </FirebaseClientProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -4,14 +4,29 @@ import Link from "next/link";
 import { Search, ShoppingCart, User, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/categories";
-import { useCart } from "@/hooks/use-cart";
+import { useFirestoreCart } from "@/hooks/use-firestore-cart";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle";
+import { useUser, useAuth } from "@/firebase";
+import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
+
 
 export default function Header() {
-  const { cartCount } = useCart();
+  const { cartCount } = useFirestoreCart();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { user } = useUser();
+  const auth = useAuth();
+
+  const handleAuthClick = () => {
+    if (!user) {
+      initiateAnonymousSignIn(auth);
+    } else {
+      // Future: Open user account menu
+      console.log("User is already signed in:", user.uid);
+    }
+  };
+
 
   const navLinks = categories.map(category => (
     <Link
@@ -85,7 +100,7 @@ export default function Header() {
             <span className="sr-only">Search</span>
           </Button>
           <ThemeToggle />
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={handleAuthClick} aria-label="Account">
             <User className="h-5 w-5" />
             <span className="sr-only">Account</span>
           </Button>

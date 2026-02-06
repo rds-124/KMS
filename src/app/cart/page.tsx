@@ -2,20 +2,23 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useCart } from "@/hooks/use-cart";
+import { useFirestoreCart } from "@/hooks/use-firestore-cart";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Trash2, Minus, Plus } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Separator } from "@/components/ui/separator";
 
 export default function CartPage() {
-  const { cartItems, updateQuantity, removeFromCart, cartTotal, cartCount } = useCart();
+  const { cartItems, updateCartItemQuantity, cartTotal, cartCount, isLoading } = useFirestoreCart();
   const shippingThreshold = 799;
   const shippingCost = cartTotal >= shippingThreshold ? 0 : 50;
   const total = cartTotal + shippingCost;
   const remainingForFreeShipping = shippingThreshold - cartTotal;
+
+  if (isLoading) {
+    return <div className="text-center py-20">Loading cart...</div>;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -54,18 +57,18 @@ export default function CartPage() {
                           <Link href={`/product/${item.product.sku}`} className="font-semibold hover:text-primary">{item.product.title}</Link>
                           <p className="text-sm text-muted-foreground">₹{price.toFixed(2)}</p>
                           <div className="flex items-center border rounded-md w-fit mt-2">
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.product.sku, item.quantity - 1)}>
+                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => updateCartItemQuantity(item.id, item.quantity - 1)}>
                                 <Minus className="h-4 w-4" />
                             </Button>
                             <span className="w-8 text-center text-sm font-bold">{item.quantity}</span>
-                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => updateQuantity(item.product.sku, item.quantity + 1)}>
+                            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => updateCartItemQuantity(item.id, item.quantity + 1)} disabled={item.quantity >= item.product.stock_qty}>
                                 <Plus className="h-4 w-4" />
                             </Button>
                           </div>
                         </div>
                         <div className="text-right">
                           <p className="font-bold">₹{(price * item.quantity).toFixed(2)}</p>
-                          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive mt-2" onClick={() => removeFromCart(item.product.sku)}>
+                          <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive mt-2" onClick={() => updateCartItemQuantity(item.id, 0)}>
                             <Trash2 className="h-4 w-4" />
                           </Button>
                         </div>

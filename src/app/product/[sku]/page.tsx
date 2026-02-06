@@ -8,9 +8,8 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { useCart } from '@/hooks/use-cart';
 import { useToast } from '@/hooks/use-toast';
-import { Star, Minus, Plus, ShoppingCart, ShieldCheck, Truck } from 'lucide-react';
+import { Star, Minus, Plus, ShieldCheck, Truck } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import {
   Carousel,
@@ -20,29 +19,27 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { useFirestoreCart } from '@/hooks/use-firestore-cart';
+import { useUser, useAuth } from '@/firebase';
+import { initiateAnonymousSignIn } from '@/firebase/non-blocking-login';
 
 export default function ProductPage() {
   const params = useParams();
   const { sku } = params;
-  const { addToCart, cartItems, updateQuantity } = useCart();
   const { toast } = useToast();
-  const [quantity, setQuantity] = useState(1);
-  const [isClient, setIsClient] = useState(false);
+  const { user } = useUser();
+  const auth = useAuth();
+  const { getCartItem, addToCart, updateCartItemQuantity } = useFirestoreCart();
 
   const product = allProducts.find((p) => p.sku === sku);
-  const cartItem = cartItems.find(item => item.product.sku === product?.sku);
+  const cartItem = product ? getCartItem(product.sku) : undefined;
+  
+  const [localQuantity, setLocalQuantity] = useState(1);
+  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  useEffect(() => {
-    if (cartItem) {
-      setQuantity(cartItem.quantity);
-    } else {
-      setQuantity(1);
-    }
-  }, [cartItem]);
 
   if (!product) {
     return (
@@ -60,12 +57,31 @@ export default function ProductPage() {
     : 0;
 
   const handleAddToCart = () => {
-    addToCart(product, quantity);
+    if (!user) {
+        initiateAnonymousSignIn(auth);
+    }
+    addToCart(product, localQuantity);
     toast({
       title: "Added to cart",
-      description: `${quantity} x ${product.title} has been added.`,
+      description: `${localQuantity} x ${product.title} has been added.`,
     });
   };
+
+  const handleQuantityUpdate = (newQuantity: number) => {
+    if (cartItem) {
+      updateCartItemQuantity(cartItem.id, newQuantity);
+    }
+  };
+  
+  const handleLocalQuantityChange = (change: number) => {
+    setLocalQuantity(prev => {
+        const newQuantity = prev + change;
+        if (newQuantity > 0 && newQuantity <= product.stock_qty) {
+            return newQuantity;
+        }
+        return prev;
+    });
+  }
 
   const formatPrice = (price: number) => {
     if (!isClient) {
@@ -78,20 +94,6 @@ export default function ProductPage() {
       maximumFractionDigits: 2,
     }).format(price);
   };
-  
-  const handleQuantityUpdate = (newQuantity: number) => {
-    if (newQuantity > 0) {
-      updateQuantity(product.sku, newQuantity);
-    } else {
-      updateQuantity(product.sku, 0); // This will remove the item via the logic in useCart
-    }
-  };
-
-  const handleLocalQuantityChange = (newQuantity: number) => {
-    if (newQuantity > 0 && newQuantity <= product.stock_qty) {
-        setQuantity(newQuantity);
-    }
-  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -173,11 +175,11 @@ export default function ProductPage() {
             ) : (
               <div className="flex items-center gap-4">
                 <div className="flex items-center border rounded-md">
-                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(quantity - 1)} aria-label="Decrease quantity">
+                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(-1)} aria-label="Decrease quantity">
                     <Minus className="h-4 w-4" />
                   </Button>
-                  <span className="w-12 text-center font-bold tabular-nums">{quantity}</span>
-                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(quantity + 1)} aria-label="Increase quantity">
+                  <span className="w-12 text-center font-bold tabular-nums">{localQuantity}</span>
+                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(1)} aria-label="Increase quantity">
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>

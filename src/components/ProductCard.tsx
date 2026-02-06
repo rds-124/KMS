@@ -2,97 +2,66 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useCart } from "@/hooks/use-cart";
-import { useToast } from "@/hooks/use-toast";
+import { useFirestoreCart } from "@/hooks/use-firestore-cart";
 import type { Product } from "@/types";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Plus, Minus } from "lucide-react";
+import { useUser } from "@/firebase";
+import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
+import { useAuth } from "@/firebase";
+
 
 type ProductCardProps = {
   product: Product;
 };
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart, cartItems, updateQuantity } = useCart();
-  const { toast } = useToast();
-  const [isClient, setIsClient] = useState(false);
-  const [quantity, setQuantity] = useState(1);
+  const auth = useAuth();
+  const { user } = useUser();
+  const { getCartItem, addToCart, updateCartItemQuantity } = useFirestoreCart();
   
-  const cartItem = cartItems.find(item => item.product.sku === product.sku);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  
-  useEffect(() => {
-    if (cartItem) {
-      setQuantity(cartItem.quantity);
-    } else {
-      setQuantity(1);
-    }
-  }, [cartItem]);
+  const cartItem = getCartItem(product.sku);
 
   const productImage = PlaceHolderImages && PlaceHolderImages.find(p => p.id === product.images[0]);
   const discount = product.sale_price ? Math.round(((product.price - product.sale_price) / product.price) * 100) : 0;
   
   const isOutOfStock = product.stock_status === 'outofstock';
 
-  const handleAddToCart = (e: React.MouseEvent) => {
+  const handleInitialAdd = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    addToCart(product, quantity);
-    toast({
-      title: "Added to cart",
-      description: `${quantity} x ${product.title} has been added.`,
-    });
+    if (!user) {
+        initiateAnonymousSignIn(auth);
+    }
+    addToCart(product);
   };
-
+  
   const incrementQuantity = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const newQuantity = cartItem ? cartItem.quantity + 1 : quantity + 1;
-    if (newQuantity <= product.stock_qty) {
-      if (cartItem) {
-        updateQuantity(product.sku, newQuantity);
-      } else {
-        setQuantity(newQuantity);
-      }
+    if (cartItem) {
+        const newQuantity = cartItem.quantity + 1;
+        if (newQuantity <= product.stock_qty) {
+            updateCartItemQuantity(cartItem.id, newQuantity);
+        }
     }
   };
   
   const decrementQuantity = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    const newQuantity = cartItem ? cartItem.quantity - 1 : quantity - 1;
-    if (newQuantity > 0) {
-      if (cartItem) {
-        updateQuantity(product.sku, newQuantity);
-      } else {
-        setQuantity(newQuantity);
-      }
-    } else if(cartItem) {
-        updateQuantity(product.sku, 0); // remove from cart
+    if (cartItem) {
+        const newQuantity = cartItem.quantity - 1;
+        updateCartItemQuantity(cartItem.id, newQuantity); // The hook handles deletion if quantity is <= 0
     }
-  };
-
-  const formatPrice = (price: number) => {
-    if (!isClient) {
-      return `₹${price.toFixed(2)}`;
-    }
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "INR",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 2,
-    }).format(price);
   };
 
   return (
-    <Card className="w-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 flex flex-col">
+    <Card className="w-full overflow-hidden transition-all duration-300 hover:shadow-lg flex flex-col">
       <Link href={`/product/${product.sku}`} className="block flex-grow">
         <CardContent className="p-0">
           <div className="relative">
@@ -115,13 +84,14 @@ export default function ProductCard({ product }: ProductCardProps) {
           </div>
           <div className="p-4 space-y-2">
             <h3 className="font-semibold text-sm md:text-base min-h-[2.5rem] md:min-h-[2.75rem] line-clamp-2">{product.title}</h3>
+            <p className="text-muted-foreground text-sm">{product.weight}</p>
             <div className="flex items-baseline gap-2">
               <p className={`font-bold text-base md:text-lg ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
-                {formatPrice(product.sale_price ?? product.price)}
+                ₹{product.sale_price ?? product.price}
               </p>
               {product.sale_price && (
                 <p className="text-xs md:text-sm text-muted-foreground mrp">
-                  {formatPrice(product.price)}
+                  ₹{product.price}
                 </p>
               )}
             </div>
@@ -130,37 +100,27 @@ export default function ProductCard({ product }: ProductCardProps) {
       </Link>
       <div className="px-4 pb-4 mt-auto">
         {isOutOfStock ? (
-           <Button className="w-full h-8 md:h-10 text-sm" disabled variant="outline">
+           <Button className="w-full" disabled variant="outline">
               Out of Stock
           </Button>
-        ) : cartItem ? (
-          <div className="flex items-center justify-center">
-            <Button variant="outline" size="icon" className="h-8 w-8 md:h-9 md:w-9" onClick={decrementQuantity} aria-label="Decrease quantity">
-              <Minus className="h-4 w-4" />
+        ) : cartItem && cartItem.quantity > 0 ? (
+          <div className="flex items-center justify-center bg-green-600 text-white rounded-full h-10">
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-green-700 hover:text-white rounded-full" onClick={decrementQuantity} aria-label="Decrease quantity">
+              <Minus className="h-5 w-5" />
             </Button>
-            <span className="font-bold text-base md:text-lg w-10 md:w-12 text-center tabular-nums">{cartItem.quantity}</span>
-             <Button variant="outline" size="icon" className="h-8 w-8 md:h-9 md:w-9" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
-              <Plus className="h-4 w-4" />
+            <span className="font-bold text-base w-8 text-center tabular-nums">{cartItem.quantity}</span>
+             <Button variant="ghost" size="icon" className="h-8 w-8 text-white hover:bg-green-700 hover:text-white rounded-full" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+              <Plus className="h-5 w-5" />
             </Button>
           </div>
         ) : (
-            <div className="flex flex-col md:flex-row items-center md:gap-3 gap-2">
-                <div className="flex items-center border rounded-md h-8 md:h-9 w-full md:w-auto">
-                    <Button variant="ghost" size="icon" className="h-full w-8" onClick={decrementQuantity} aria-label="Decrease quantity">
-                        <Minus className="h-4 w-4" />
-                    </Button>
-                    <span className="font-bold text-sm md:text-base w-full text-center tabular-nums">{quantity}</span>
-                    <Button variant="ghost" size="icon" className="h-full w-8" onClick={incrementQuantity} aria-label="Increase quantity" disabled={quantity >= product.stock_qty}>
-                        <Plus className="h-4 w-4" />
-                    </Button>
-                </div>
-                <Button 
-                    className="w-full flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full h-9 text-sm md:h-9"
-                    onClick={handleAddToCart}
-                >
-                    Add
-                </Button>
-            </div>
+            <Button 
+                className="w-full h-10 rounded-full text-lg font-bold"
+                variant="outline"
+                onClick={handleInitialAdd}
+            >
+                +
+            </Button>
         )}
       </div>
     </Card>
