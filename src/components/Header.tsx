@@ -43,7 +43,7 @@ export default function Header() {
       <div className="bg-accent text-accent-foreground text-center text-sm font-medium p-2">
         Free shipping on all orders above ₹799
       </div>
-      <div className="container flex h-16 items-center">
+      <div className="container hidden h-16 items-center md:flex">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
             <span className="font-bold font-headline text-2xl">Karavali Store</span>

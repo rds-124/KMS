@@ -3,27 +3,13 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, Search, ShoppingCart, User } from 'lucide-react';
+import { Home, LayoutGrid, Search, ShoppingCart, Store } from 'lucide-react';
 import { useFirestoreCart } from '@/hooks/use-firestore-cart';
-import { useUser, useAuth } from '@/firebase';
-import { initiateAnonymousSignIn } from '@/firebase/non-blocking-login';
 import { cn } from '@/lib/utils';
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const { cartCount } = useFirestoreCart();
-  const { user } = useUser();
-  const auth = useAuth();
-
-  const handleAuthClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    if (!user) {
-      initiateAnonymousSignIn(auth);
-    } else {
-      // In a real app, this might navigate to an /account page
-      console.log("User is already signed in:", user.uid);
-    }
-  };
   
   // Navigation items for the bottom bar. 'type' determines if it's a link or a button.
   const navItems = [
@@ -31,7 +17,7 @@ export default function MobileBottomNav() {
     { type: 'link', href: '/category/all', icon: LayoutGrid, label: 'Categories' },
     { type: 'link', href: '/cart', icon: ShoppingCart, label: 'Cart' },
     { type: 'link', href: '/category/all', icon: Search, label: 'Search' }, // Pointing Search to categories page for now
-    { type: 'button', icon: User, label: 'Account', onClick: handleAuthClick },
+    { type: 'link', href: '/', icon: Store, label: 'Store' },
   ];
 
   // The bottom nav should not appear on admin pages
@@ -52,7 +38,7 @@ export default function MobileBottomNav() {
                 {navItems.map((item) => {
                     // Determine if the link is active. Search is excluded from being active to avoid conflict with Categories.
                     const isActive = item.type === 'link' && (
-                        (item.href === '/' && pathname === '/') ||
+                        (item.href === '/' && pathname === '/' && item.label === 'Home') || // Only Home is active on homepage
                         (item.href !== '/' && item.label !== 'Search' && pathname.startsWith(item.href))
                     );
 
@@ -85,7 +71,6 @@ export default function MobileBottomNav() {
                         return (
                             <button
                                 key={item.label}
-                                onClick={item.onClick}
                                 className="flex h-full w-full flex-col items-center justify-center gap-1 rounded-full text-xs text-muted-foreground transition-colors hover:text-primary"
                             >
                                 <item.icon className="h-5 w-5" />
