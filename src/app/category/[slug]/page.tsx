@@ -19,11 +19,55 @@ import { Slider } from '@/components/ui/slider';
 import type { Product } from '@/types';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
+import Image from 'next/image';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export default function CategoryPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const slug = params.slug as string;
+
+  if (slug === 'all') {
+    return (
+      <div className="container mx-auto px-4 py-8">
+        <section className="mb-12">
+          <h2 className="text-3xl font-headline font-bold text-center mb-8">Shop by Category</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {categories.map((category) => {
+              const categoryImage = PlaceHolderImages.find(p => p.id === category.imageId);
+              return (
+                <Link href={`/category/${category.slug}`} key={category.id} className="group relative overflow-hidden rounded-lg shadow-lg">
+                  {categoryImage && (
+                    <Image
+                      src={categoryImage.imageUrl}
+                      alt={category.name}
+                      width={400}
+                      height={400}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      data-ai-hint={categoryImage.imageHint}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/40" />
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <h3 className="text-white text-xl md:text-2xl font-bold font-headline p-4 text-center">{category.name}</h3>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </section>
+        <section>
+          <h2 className="text-3xl font-headline font-bold text-center mb-8">All Products</h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+            {allProducts.map((product) => (
+              <ProductCard key={product.sku} product={product} />
+            ))}
+          </div>
+        </section>
+      </div>
+    );
+  }
+
   const subCategoryQuery = searchParams.get('sub_category');
 
   const [sortOption, setSortOption] = useState('featured');
