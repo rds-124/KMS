@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { FirebaseClientProvider } from "@/firebase/client-provider";
+import MobileBottomNav from "@/components/MobileBottomNav";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -32,12 +33,13 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <FirebaseClientProvider>
-            <div className="flex flex-col min-h-screen">
+            <div className="flex flex-col min-h-screen pb-20 md:pb-0">
               <Header />
               <main className="flex-grow">{children}</main>
               <Footer />
             </div>
             <WhatsAppButton />
+            <MobileBottomNav />
             <Toaster />
           </FirebaseClientProvider>
         </ThemeProvider>
