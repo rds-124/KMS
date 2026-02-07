@@ -4,34 +4,33 @@
 
 @layer base {
   :root {
-    --background: 36 100% 98%; /* Light Beige */
+    --background: 36 100% 98%; /* Warm Cream */
     --foreground: 20 14.3% 4.1%;
     --card: 36 100% 98%;
     --card-foreground: 20 14.3% 4.1%;
     --popover: 36 100% 98%;
     --popover-foreground: 20 14.3% 4.1%;
-    --primary: 34 81% 64%; /* Saffron */
-    --primary-foreground: 20 14.3% 4.1%;
+    --primary: 147 50% 36%; /* Forest Green */
+    --primary-foreground: 60 9.1% 97.8%;
     --secondary: 60 4.8% 95.9%;
     --secondary-foreground: 24 9.8% 10%;
     --muted: 60 4.8% 95.9%;
     --muted-foreground: 25 5.3% 44.7%;
-    --accent: 147 50% 36%; /* Deep Green */
+    --accent: 18 56% 53%; /* Terracotta */
     --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 60 9.1% 97.8%;
-    --border: 34 81% 88%;
-    --input: 34 81% 88%;
-    --ring: 34 81% 64%;
-    --radius: 0.5rem;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 147 50% 36%;
     --sidebar-background: 36 100% 98%;
     --sidebar-foreground: 20 14.3% 4.1%;
-    --sidebar-primary: 34 81% 64%;
-    --sidebar-primary-foreground: 20 14.3% 4.1%;
-    --sidebar-accent: 147 50% 36%;
+    --sidebar-primary: 147 50% 36%;
+    --sidebar-primary-foreground: 60 9.1% 97.8%;
+    --sidebar-accent: 18 56% 53%;
     --sidebar-accent-foreground: 60 9.1% 97.8%;
-    --sidebar-border: 34 81% 88%;
-    --sidebar-ring: 34 81% 64%;
+    --sidebar-border: 20 5.9% 90%;
+    --sidebar-ring: 147 50% 36%;
   }
 
   .dark {
@@ -41,27 +40,27 @@
     --card-foreground: 60 9.1% 97.8%;
     --popover: 20 14.3% 4.1%;
     --popover-foreground: 60 9.1% 97.8%;
-    --primary: 34 81% 64%;
+    --primary: 147 50% 42%; /* Lighter green for dark mode */
     --primary-foreground: 20 14.3% 4.1%;
     --secondary: 12 6.5% 15.1%;
     --secondary-foreground: 60 9.1% 97.8%;
     --muted: 12 6.5% 15.1%;
     --muted-foreground: 24 5.4% 63.9%;
-    --accent: 147 50% 36%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --accent: 18 56% 63%; /* Lighter terracotta for dark mode */
+    --accent-foreground: 20 14.3% 4.1%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 60 9.1% 97.8%;
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
-    --ring: 34 81% 64%;
+    --ring: 147 50% 42%;
     --sidebar-background: 20 14.3% 4.1%;
     --sidebar-foreground: 60 9.1% 97.8%;
-    --sidebar-primary: 34 81% 64%;
+    --sidebar-primary: 147 50% 42%;
     --sidebar-primary-foreground: 20 14.3% 4.1%;
-    --sidebar-accent: 147 50% 36%;
-    --sidebar-accent-foreground: 60 9.1% 97.8%;
+    --sidebar-accent: 18 56% 63%;
+    --sidebar-accent-foreground: 20 14.3% 4.1%;
     --sidebar-border: 12 6.5% 15.1%;
-    --sidebar-ring: 34 81% 64%;
+    --sidebar-ring: 147 50% 42%;
   }
 }
 

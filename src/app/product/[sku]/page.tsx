@@ -134,14 +134,14 @@ export default function ProductPage() {
           <div className="flex items-center gap-2">
             <div className="flex items-center">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className={`h-5 w-5 ${i < 4 ? 'text-primary fill-current' : 'text-muted-foreground'}`} />
+                <Star key={i} className={`h-5 w-5 ${i < 4 ? 'text-yellow-400 fill-current' : 'text-muted-foreground'}`} />
               ))}
             </div>
             <span className="text-sm text-muted-foreground">(12 reviews)</span>
           </div>
 
           <div className="flex items-baseline gap-2">
-            <p className={`text-3xl font-bold ${product.sale_price ? 'text-primary' : ''} inline-flex items-baseline price`}>
+            <p className="text-3xl font-bold text-primary inline-flex items-baseline price">
               {formatPrice(product.sale_price ?? product.price)}
             </p>
             {product.sale_price && (
@@ -183,7 +183,7 @@ export default function ProductPage() {
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
-                <Button size="lg" className="flex-1 bg-green-600 hover:bg-green-700 text-white rounded-full" onClick={handleAddToCart}>
+                <Button size="lg" className="flex-1 rounded-full" onClick={handleAddToCart}>
                   Add to Cart
                 </Button>
               </div>

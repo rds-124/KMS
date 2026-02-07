@@ -114,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-3 pt-0 mt-auto flex justify-between items-center gap-1">
           {/* Price */}
           <div className="flex flex-col items-start">
-              <p className={cn("font-bold price", "text-sm md:text-base")}>
+              <p className={cn("font-bold price text-primary", "text-sm md:text-base")}>
                   ₹{product.sale_price ?? product.price}
               </p>
               {product.sale_price && (
@@ -131,23 +131,23 @@ export default function ProductCard({ product }: ProductCardProps) {
                     Out of Stock
                 </div>
             ) : cartItem && cartItem.quantity > 0 ? (
-                <div className="flex items-center h-9 rounded-full bg-accent/10 dark:bg-accent/20 p-1 gap-1">
+                <div className="flex items-center h-9 rounded-full bg-primary/10 dark:bg-primary/20 p-1 gap-1">
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="w-6 h-6 rounded-full border border-accent text-accent hover:bg-accent/20"
+                        className="w-6 h-6 rounded-full border border-primary text-primary hover:bg-primary/20"
                         onClick={decrementQuantity}
                         aria-label="Decrease quantity"
                     >
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="text-center text-accent font-bold text-sm tabular-nums px-1 min-w-[1rem]">
+                    <span className="text-center text-primary font-bold text-sm tabular-nums px-1 min-w-[1rem]">
                         {cartItem.quantity}
                     </span>
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="w-6 h-6 rounded-full border border-accent text-accent hover:bg-accent/20"
+                        className="w-6 h-6 rounded-full border border-primary text-primary hover:bg-primary/20"
                         onClick={incrementQuantity}
                         aria-label="Increase quantity"
                         disabled={cartItem.quantity >= product.stock_qty}
@@ -159,7 +159,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Button 
                     variant="outline"
                     size="sm"
-                    className="h-9 px-4 rounded-full border-accent text-accent bg-accent/10 hover:bg-accent/20 hover:text-accent font-bold"
+                    className="h-9 px-4 rounded-full border-primary text-primary bg-primary/10 hover:bg-primary/20 hover:text-primary font-bold"
                     onClick={handleInitialAdd}
                     aria-label="Add to cart"
                 >

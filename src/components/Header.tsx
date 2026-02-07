@@ -69,14 +69,14 @@ export default function Header() {
 
       {/* Desktop Header */}
       <header className="sticky top-0 z-40 hidden w-full p-2 md:block">
-        <div className="container mx-auto flex h-16 items-center justify-between gap-6 rounded-full bg-accent px-4 text-accent-foreground">
+        <div className="container mx-auto flex h-16 items-center justify-between gap-6 rounded-full bg-primary px-4 text-primary-foreground">
           
           {/* Left Section: Menu and Brand */}
           <div className="flex items-center gap-2">
             {/* The Sheet component provides an off-canvas menu, primarily for mobile, but linked here for consistency. */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="hover:bg-primary/20 focus-visible:bg-primary/20">
+                <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
                   <Menu className="h-6 w-6" />
                   <span className="sr-only">Open menu</span>
                 </Button>
@@ -122,7 +122,7 @@ export default function Header() {
           <div className="flex items-center gap-1">
               <DropdownMenu>
                   <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="hover:bg-primary/20 focus-visible:bg-primary/20">
+                      <Button variant="ghost" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
                           <LayoutGrid className="mr-2 h-5 w-5" />
                           Categories
                           <ChevronDown className="ml-1 h-5 w-5" />
@@ -140,18 +140,18 @@ export default function Header() {
               <ThemeToggle />
 
               {isHomePage && (
-                <Button variant="ghost" size="icon" className="hover:bg-primary/20 focus-visible:bg-primary/20" onClick={handleAuthClick} aria-label="Account">
+                <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10" onClick={handleAuthClick} aria-label="Account">
                     <User className="h-5 w-5" />
                     <span className="sr-only">Account</span>
                 </Button>
               )}
 
               <Link href="/cart" passHref>
-                  <Button variant="ghost" size="icon" className="relative hover:bg-primary/20 focus-visible:bg-primary/20">
+                  <Button variant="ghost" size="icon" className="relative hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
                       <ShoppingCart className="h-5 w-5" />
                       <span className="sr-only">Cart</span>
                       {cartCount > 0 && (
-                          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                          <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-destructive text-destructive-foreground text-xs font-bold">
                           {cartCount}
                           </span>
                       )}

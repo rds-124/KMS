@@ -69,7 +69,7 @@ export default function Home() {
           <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
             Discover authentic spices, traditional crafts, and unique delicacies from the coastal heart of Karnataka.
           </p>
-          <Button asChild size="lg" className="mt-8 bg-primary text-primary-foreground hover:bg-primary/90">
+          <Button asChild size="lg" className="mt-8">
             <Link href="/category/all">Shop All Products</Link>
           </Button>
         </div>
@@ -114,11 +114,11 @@ export default function Home() {
               </Link>
             )
           })}
-          <Link href="/category/all" className="group flex flex-col items-center justify-center bg-green-100/70 dark:bg-green-900/30 p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 text-center aspect-[1/1]">
+          <Link href="/category/all" className="group flex flex-col items-center justify-center bg-accent/10 dark:bg-accent/20 p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 text-center aspect-[1/1]">
               <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white dark:bg-slate-800 rounded-full mb-2 shadow-md transition-transform duration-300 group-hover:scale-110">
-                  <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-green-800 dark:text-green-300" />
+                  <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-accent" />
               </div>
-              <span className="font-bold text-sm md:text-base text-green-800 dark:text-green-300">See all</span>
+              <span className="font-bold text-sm md:text-base text-accent">See all</span>
           </Link>
         </div>
       </section>
@@ -140,12 +140,12 @@ export default function Home() {
 
       {/* This new parent section provides a continuous background for the two sections below. */}
       {/* A light secondary color gives a soft, premium feel. */}
-      <section className="bg-secondary/30">
+      <section className="bg-secondary">
         <div className="container mx-auto px-4 py-12 md:py-20 space-y-12 md:space-y-20">
 
           {/* About Us Teaser Section */}
           {/* This card has a semi-transparent background image to create a textured, premium feel. */}
-          <div className="bg-lime-50 dark:bg-lime-950/20 rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
+          <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
             {aboutUsFarmBgImage && (
                 <Image
                     src={aboutUsFarmBgImage.imageUrl}
@@ -184,7 +184,7 @@ export default function Home() {
           </div>
 
           {/* Why Choose Us Section */}
-          <div className="bg-lime-50 dark:bg-lime-950/20 rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
+          <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
              {aboutUsFarmBgImage && (
                 <Image
                     src={aboutUsFarmBgImage.imageUrl}
@@ -214,7 +214,7 @@ export default function Home() {
           </div>
 
           {/* Customer Reviews Section */}
-          <div className="bg-lime-50 dark:bg-lime-950/20 rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
+          <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
              {aboutUsFarmBgImage && (
                 <Image
                     src={aboutUsFarmBgImage.imageUrl}
@@ -231,7 +231,7 @@ export default function Home() {
           </div>
 
           {/* Final CTA Section */}
-          <div className="bg-lime-50 dark:bg-lime-950/20 rounded-3xl shadow-lg overflow-hidden relative">
+          <div className="bg-background rounded-3xl shadow-lg overflow-hidden relative">
               {aboutUsFarmBgImage && (
                 <Image
                     src={aboutUsFarmBgImage.imageUrl}
@@ -244,26 +244,26 @@ export default function Home() {
               <div className="relative z-10">
                 <div className="p-8 md:p-10">
                     <div className="flex justify-center items-center gap-4 mb-8">
-                        <Truck className="w-12 h-12 text-green-800 dark:text-green-300" strokeWidth={1.5} />
-                        <h2 className="text-3xl font-bold text-green-800 dark:text-green-300">Fast & Reliable Delivery</h2>
+                        <Truck className="w-12 h-12 text-primary" strokeWidth={1.5} />
+                        <h2 className="text-3xl font-bold text-primary">Fast & Reliable Delivery</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-muted-foreground">
                         <div className="flex flex-col items-center gap-2">
-                            <MapPin className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                            <MapPin className="w-8 h-8 text-accent" />
                             <p className="font-semibold">Delivering in Bangalore<br />& Across Karnataka</p>
                         </div>
-                        <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-amber-300/70 dark:sm:border-amber-700/50 px-4">
-                            <Clock className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                        <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-accent/50 px-4">
+                            <Clock className="w-8 h-8 text-accent" />
                             <p className="font-semibold">Orders Dispatched<br />in 24 Hours</p>
                         </div>
                         <div className="flex flex-col items-center gap-2">
-                            <PhoneCall className="w-8 h-8 text-amber-900 dark:text-amber-300" />
+                            <PhoneCall className="w-8 h-8 text-accent" />
                             <p className="font-semibold">24/7 Customer Support</p>
                         </div>
                     </div>
                 </div>
 
-                <div className="border-t-2 border-dashed border-amber-300/70 dark:border-amber-700/50"></div>
+                <div className="border-t-2 border-dashed border-accent/50"></div>
 
                 <div className="grid md:grid-cols-2 items-center">
                     <div className="relative w-full h-64 md:h-full min-h-[300px] order-last md:order-first">
@@ -272,19 +272,19 @@ export default function Home() {
                         )}
                     </div>
                     <div className="p-8 text-center space-y-5">
-                        <h3 className="font-headline text-4xl text-red-800 dark:text-red-400">Experience the Authentic Taste of the Coast!</h3>
+                        <h3 className="font-headline text-4xl text-primary">Experience the Authentic Taste of the Coast!</h3>
                         <p className="text-xl font-semibold">Order Now & Bring Home the Flavors of Karavali!</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild size="lg" className="bg-red-700 hover:bg-red-800 text-white rounded-lg text-lg px-8 py-6">
+                            <Button asChild size="lg" className="rounded-lg text-lg px-8 py-6">
                                 <Link href="/category/all">Shop Now</Link>
                             </Button>
-                            <Button asChild size="lg" className="bg-green-700 hover:bg-green-800 text-white rounded-lg text-lg px-8 py-6">
+                            <Button asChild variant="outline" size="lg" className="rounded-lg text-lg px-8 py-6">
                                 <Link href={whatsappUrl} target="_blank">
                                     <WhatsAppIcon /> Order on WhatsApp
                                 </Link>
                             </Button>
                         </div>
-                        <div className="flex items-center justify-center gap-2 text-yellow-700 dark:text-yellow-400 font-bold pt-4">
+                        <div className="flex items-center justify-center gap-2 text-accent font-bold pt-4">
                             <CheckCircle className="w-5 h-5"/>
                             <span>100% Satisfaction Guaranteed!</span>
                         </div>
