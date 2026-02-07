@@ -19,6 +19,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useUser, useAuth } from "@/firebase";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
 import { cn } from "@/lib/utils";
+import { MobileThemeToggle } from "./MobileThemeToggle";
 
 
 export default function Header() {
@@ -55,6 +56,16 @@ export default function Header() {
 
   return (
     <>
+      {/* Mobile-only Theme Toggle */}
+      {isHomePage && (
+        <div className={cn(
+          "fixed top-4 left-4 z-50 md:hidden transition-opacity duration-300",
+          isAtTop ? "opacity-90" : "opacity-0 pointer-events-none"
+        )}>
+          <MobileThemeToggle />
+        </div>
+      )}
+
       {/* Mobile-only Account Icon */}
       {isHomePage && (
         <div className={cn(
