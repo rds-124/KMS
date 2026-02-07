@@ -82,17 +82,17 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     // Using a more standard card layout. `rounded-xl` for a softer modern look.
-    <Card className="group w-full h-full bg-card rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl flex flex-col">
+    <Card className="group w-full h-full bg-card rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1 flex flex-col">
       <Link href={`/product/${product.sku}`} className="flex-grow flex flex-col">
         {/* Product Image Section */}
-        <div className="relative w-full">
+        <div className="relative w-full overflow-hidden">
           {productImage && (
             <Image
               src={productImage.imageUrl}
               alt={product.title}
               width={400}
               height={400}
-              className="aspect-square w-full object-cover"
+              className="aspect-square w-full object-cover transition-transform duration-300 group-hover:scale-105"
               data-ai-hint={productImage.imageHint}
             />
           )}
