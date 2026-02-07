@@ -130,22 +130,20 @@ export default function ProductCard({ product }: ProductCardProps) {
                     Out of Stock
                 </div>
             ) : cartItem && cartItem.quantity > 0 ? (
-                // Compact quantity selector
-                <div className="flex items-center justify-evenly h-9 rounded-lg border border-accent">
-                    <Button variant="ghost" size="icon" className="w-8 h-8 text-accent hover:bg-accent/10" onClick={decrementQuantity} aria-label="Decrease quantity">
+                <div className="flex items-center h-9">
+                    <Button variant="outline" size="icon" className="w-9 h-9 rounded-r-none" onClick={decrementQuantity} aria-label="Decrease quantity">
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="font-bold text-sm w-5 text-center tabular-nums text-accent">{cartItem.quantity}</span>
-                    <Button variant="ghost" size="icon" className="w-8 h-8 text-accent hover:bg-accent/10" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+                    <span className="flex items-center justify-center w-9 h-9 border-y font-bold text-sm tabular-nums">{cartItem.quantity}</span>
+                    <Button variant="outline" size="icon" className="w-9 h-9 rounded-l-none" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
             ) : (
-                // Compact add button with a plus icon.
                 <Button 
-                    variant="outline"
+                    variant="default"
                     size="icon"
-                    className="h-9 w-9 border-accent text-accent hover:bg-accent/10 hover:text-accent"
+                    className="h-9 w-9"
                     onClick={handleInitialAdd}
                     aria-label="Add to cart"
                 >
