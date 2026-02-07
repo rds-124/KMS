@@ -97,28 +97,24 @@ export default function Home() {
           {categories.slice(0, 5).map((category) => {
             const categoryImage = PlaceHolderImages.find(p => p.id === category.imageId);
             return (
-              <Link href={`/category/${category.slug}`} key={category.id} className="group block bg-card p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 aspect-[1/1] md:aspect-auto">
-                  <div className="flex flex-col justify-between h-full">
-                      <div>
-                          <h3 className="font-bold text-sm md:text-base">{category.name}</h3>
-                          <p className="text-xs text-muted-foreground">Explore</p>
-                      </div>
-                      <div className="relative w-16 h-16 md:w-20 md:h-20 self-end">
-                          {categoryImage && (
-                              <Image
-                                  src={categoryImage.imageUrl}
-                                  alt={category.name}
-                                  fill
-                                  className="object-contain transition-transform duration-300 group-hover:scale-110"
-                                  data-ai-hint={categoryImage.imageHint}
-                              />
-                          )}
-                      </div>
-                  </div>
+              <Link href={`/category/${category.slug}`} key={category.id} className="group relative block bg-card rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 aspect-[1/1] overflow-hidden">
+                {categoryImage && (
+                  <Image
+                    src={categoryImage.imageUrl}
+                    alt={category.name}
+                    fill
+                    className="object-cover transition-transform duration-300 group-hover:scale-110"
+                    data-ai-hint={categoryImage.imageHint}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 transition-colors" />
+                <div className="absolute bottom-0 left-0 w-full p-3 md:p-4">
+                  <h3 className="font-bold text-sm md:text-base text-white shadow-sm">{category.name}</h3>
+                </div>
               </Link>
             )
           })}
-          <Link href="/category/all" className="group flex flex-col items-center justify-center bg-green-100/70 dark:bg-green-900/30 p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 text-center aspect-[1/1] md:aspect-auto">
+          <Link href="/category/all" className="group flex flex-col items-center justify-center bg-green-100/70 dark:bg-green-900/30 p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 text-center aspect-[1/1]">
               <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white dark:bg-slate-800 rounded-full mb-2 shadow-md transition-transform duration-300 group-hover:scale-110">
                   <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-green-800 dark:text-green-300" />
               </div>
