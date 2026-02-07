@@ -309,7 +309,7 @@ export default function CategoryPage() {
   }, [category, subCategoryQuery]);
 
   const MobileSubCategoryNav = () => (
-    <aside className="w-24 h-screen overflow-y-auto sticky top-0 bg-secondary/30 border-r py-4">
+    <aside className="w-20 h-screen overflow-y-auto sticky top-0 bg-secondary/30 border-r py-4">
         <nav className="flex flex-col items-center gap-2">
             <Link href={`/category/${slug}`} scroll={false}
                 className={cn(
@@ -318,7 +318,7 @@ export default function CategoryPage() {
                 )}
             >
                 <div className={cn(
-                    "relative w-14 h-14 rounded-full overflow-hidden border-2",
+                    "relative w-12 h-12 rounded-full overflow-hidden border-2",
                     !subCategoryQuery ? "border-primary" : "border-transparent"
                 )}>
                     {category && PlaceHolderImages.find(p => p.id === category.imageId) ? (
@@ -351,7 +351,7 @@ export default function CategoryPage() {
                         )}
                     >
                         <div className={cn(
-                            "relative w-14 h-14 rounded-full overflow-hidden border-2",
+                            "relative w-12 h-12 rounded-full overflow-hidden border-2",
                             isActive ? "border-primary" : "border-transparent"
                         )}>
                             {image ? (
@@ -541,3 +541,4 @@ export default function CategoryPage() {
     </div>
   );
 }
+

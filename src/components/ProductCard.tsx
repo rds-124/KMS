@@ -12,6 +12,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Plus, Minus } from "lucide-react";
 import { useUser, useAuth } from "@/firebase";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
+import { cn } from "@/lib/utils";
 
 type ProductCardProps = {
   product: Product;
@@ -105,7 +106,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         
         {/* Product Details Section */}
         <div className="p-3 flex-grow flex flex-col">
-            <h3 className="font-semibold text-sm line-clamp-2 text-left flex-grow">{product.title}</h3>
+            <h3 className="font-semibold text-xs md:text-sm line-clamp-2 text-left flex-grow">{product.title}</h3>
         </div>
       </Link>
       
@@ -113,7 +114,7 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-3 pt-0 mt-auto flex justify-between items-center">
           {/* Price */}
           <div className="flex flex-col items-start">
-              <p className={`font-bold text-base price`}>
+              <p className={cn("font-bold price", "text-sm md:text-base")}>
                   ₹{product.sale_price ?? product.price}
               </p>
               {product.sale_price && (
@@ -130,12 +131,12 @@ export default function ProductCard({ product }: ProductCardProps) {
                     Out of Stock
                 </div>
             ) : cartItem && cartItem.quantity > 0 ? (
-                <div className="flex items-center h-9 rounded-md bg-accent/20 overflow-hidden">
-                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-accent hover:bg-accent/30" onClick={decrementQuantity} aria-label="Decrease quantity">
+                <div className="flex items-center h-9 rounded-md bg-green-500/10 dark:bg-green-400/10 overflow-hidden">
+                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-green-700 dark:text-green-300 hover:bg-green-500/20" onClick={decrementQuantity} aria-label="Decrease quantity">
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="flex items-center justify-center w-9 h-9 text-accent font-bold text-sm tabular-nums">{cartItem.quantity}</span>
-                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-accent hover:bg-accent/30" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+                    <span className="flex items-center justify-center w-9 h-9 text-green-800 dark:text-green-200 font-bold text-sm tabular-nums">{cartItem.quantity}</span>
+                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-green-700 dark:text-green-300 hover:bg-green-500/20" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
@@ -143,7 +144,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Button 
                     variant="ghost"
                     size="icon"
-                    className="h-9 w-9 rounded-md bg-secondary text-accent hover:bg-muted"
+                    className="h-9 w-9 rounded-md bg-zinc-100 dark:bg-zinc-800 text-green-800 dark:text-green-300 hover:bg-zinc-200 dark:hover:bg-zinc-700"
                     onClick={handleInitialAdd}
                     aria-label="Add to cart"
                 >
@@ -155,3 +156,4 @@ export default function ProductCard({ product }: ProductCardProps) {
     </Card>
   );
 }
+
