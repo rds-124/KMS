@@ -135,6 +135,17 @@ export const useFirestoreCart = () => {
     return cartItems.find(item => item.product.sku === sku);
   }, [cartItems]);
 
+  /**
+   * Clears all items from the user's cart.
+   */
+  const clearCart = useCallback(() => {
+    if (!cartCollectionRef || !firestoreCartItems) return;
+    firestoreCartItems.forEach(item => {
+      const itemDocRef = doc(cartCollectionRef, item.id);
+      deleteDocumentNonBlocking(itemDocRef);
+    });
+  }, [cartCollectionRef, firestoreCartItems]);
+
 
   return {
     cartItems,
@@ -144,5 +155,6 @@ export const useFirestoreCart = () => {
     addToCart,
     updateCartItemQuantity,
     getCartItem,
+    clearCart,
   };
 };

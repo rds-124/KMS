@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
-import { useCart } from "@/hooks/use-cart";
+import { useFirestoreCart } from "@/hooks/use-firestore-cart";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,21 +14,16 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
-  const { cartItems, cartTotal, cartCount, clearCart } = useCart();
+  const { cartItems, cartTotal, cartCount, clearCart, isLoading } = useFirestoreCart();
   const router = useRouter();
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    if (isClient && cartCount === 0) {
+    if (!isLoading && cartCount === 0) {
       router.push('/cart');
     }
-  }, [cartCount, router, isClient]);
+  }, [cartCount, router, isLoading]);
 
-  if (!isClient || cartCount === 0) {
+  if (isLoading || cartCount === 0) {
     return (
         <div className="container mx-auto px-4 py-8 text-center">
             <p>Loading...</p>
