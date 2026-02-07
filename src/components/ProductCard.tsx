@@ -130,20 +130,20 @@ export default function ProductCard({ product }: ProductCardProps) {
                     Out of Stock
                 </div>
             ) : cartItem && cartItem.quantity > 0 ? (
-                <div className="flex items-center h-9">
-                    <Button variant="outline" size="icon" className="w-9 h-9 rounded-r-none" onClick={decrementQuantity} aria-label="Decrease quantity">
+                <div className="flex items-center h-9 rounded-md bg-accent/20 overflow-hidden">
+                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-accent hover:bg-accent/30" onClick={decrementQuantity} aria-label="Decrease quantity">
                         <Minus className="h-4 w-4" />
                     </Button>
-                    <span className="flex items-center justify-center w-9 h-9 border-y font-bold text-sm tabular-nums">{cartItem.quantity}</span>
-                    <Button variant="outline" size="icon" className="w-9 h-9 rounded-l-none" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
+                    <span className="flex items-center justify-center w-9 h-9 text-accent font-bold text-sm tabular-nums">{cartItem.quantity}</span>
+                    <Button variant="ghost" size="icon" className="w-9 h-9 rounded-none text-accent hover:bg-accent/30" onClick={incrementQuantity} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
                         <Plus className="h-4 w-4" />
                     </Button>
                 </div>
             ) : (
                 <Button 
-                    variant="default"
+                    variant="ghost"
                     size="icon"
-                    className="h-9 w-9"
+                    className="h-9 w-9 rounded-md bg-secondary text-accent hover:bg-muted"
                     onClick={handleInitialAdd}
                     aria-label="Add to cart"
                 >
