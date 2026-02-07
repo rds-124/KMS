@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Search, ShoppingCart, User, Menu, ChevronDown, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,7 @@ export default function Header() {
   const { user } = useUser();
   const auth = useAuth();
   const [isAtTop, setIsAtTop] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,17 +51,21 @@ export default function Header() {
     }
   };
 
+  const isHomePage = pathname === '/';
+
   return (
     <>
       {/* Mobile-only Account Icon */}
-      <div className={cn(
-        "fixed top-4 right-4 z-50 md:hidden transition-opacity duration-300",
-        isAtTop ? "opacity-90" : "opacity-0 pointer-events-none"
-      )}>
-        <Button variant="ghost" size="icon" className="h-9 w-9 bg-background/80 backdrop-blur-sm rounded-full shadow-md" onClick={handleAuthClick} aria-label="Account">
-            <User className="h-4 w-4 text-foreground" />
-        </Button>
-      </div>
+      {isHomePage && (
+        <div className={cn(
+          "fixed top-4 right-4 z-50 md:hidden transition-opacity duration-300",
+          isAtTop ? "opacity-90" : "opacity-0 pointer-events-none"
+        )}>
+          <Button variant="ghost" size="icon" className="h-9 w-9 bg-background/80 backdrop-blur-sm rounded-full shadow-md" onClick={handleAuthClick} aria-label="Account">
+              <User className="h-4 w-4 text-foreground" />
+          </Button>
+        </div>
+      )}
 
       {/* Desktop Header */}
       <header className="sticky top-0 z-40 hidden w-full p-2 md:block">
@@ -133,10 +139,12 @@ export default function Header() {
 
               <ThemeToggle />
 
-              <Button variant="ghost" size="icon" className="hover:bg-primary/20 focus-visible:bg-primary/20" onClick={handleAuthClick} aria-label="Account">
-                  <User className="h-5 w-5" />
-                  <span className="sr-only">Account</span>
-              </Button>
+              {isHomePage && (
+                <Button variant="ghost" size="icon" className="hover:bg-primary/20 focus-visible:bg-primary/20" onClick={handleAuthClick} aria-label="Account">
+                    <User className="h-5 w-5" />
+                    <span className="sr-only">Account</span>
+                </Button>
+              )}
 
               <Link href="/cart" passHref>
                   <Button variant="ghost" size="icon" className="relative hover:bg-primary/20 focus-visible:bg-primary/20">
