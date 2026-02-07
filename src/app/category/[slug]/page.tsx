@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState, useMemo } from 'react';
@@ -436,7 +437,7 @@ export default function CategoryPage() {
               <ProductFilterBar {...{ sortOption, setSortOption, inStockOnly, setInStockOnly, priceRange, setPriceRange, selectedCategories, toggleCategory, clearCategoryFilter, isAllCategoryPage, subCategoryQuery, currentCategorySlug: slug, subCategories }} />
               <div className="mt-4">
                 {sortedProducts.length > 0 ? (
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-2 gap-2">
                         {sortedProducts.map((product) => (
                             <ProductCard key={product.sku} product={product} />
                         ))}
@@ -541,4 +542,3 @@ export default function CategoryPage() {
     </div>
   );
 }
-
