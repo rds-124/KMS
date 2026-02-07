@@ -135,7 +135,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="w-7 h-7 rounded-full border border-accent text-accent hover:bg-accent/20"
+                        className="w-6 h-6 rounded-full border border-accent text-accent hover:bg-accent/20"
                         onClick={decrementQuantity}
                         aria-label="Decrease quantity"
                     >
@@ -147,7 +147,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <Button
                         variant="ghost"
                         size="icon"
-                        className="w-7 h-7 rounded-full border border-accent text-accent hover:bg-accent/20"
+                        className="w-6 h-6 rounded-full border border-accent text-accent hover:bg-accent/20"
                         onClick={incrementQuantity}
                         aria-label="Increase quantity"
                         disabled={cartItem.quantity >= product.stock_qty}
@@ -159,7 +159,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Button 
                     variant="outline"
                     size="sm"
-                    className="h-9 px-4 rounded-md border-accent text-accent bg-accent/10 hover:bg-accent/20 hover:text-accent font-bold"
+                    className="h-9 px-4 rounded-full border-accent text-accent bg-accent/10 hover:bg-accent/20 hover:text-accent font-bold"
                     onClick={handleInitialAdd}
                     aria-label="Add to cart"
                 >
