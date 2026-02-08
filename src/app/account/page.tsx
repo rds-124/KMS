@@ -191,7 +191,7 @@ function RatingDialog({ order, isOpen, onOpenChange }: { order: Order | null, is
             </div>
         </div>
 
-        <DialogFooter className="p-4 border-t bg-background flex-shrink-0 sticky bottom-0">
+        <DialogFooter className="p-4 border-t bg-background flex-shrink-0">
           <Button size="lg" className="w-full" onClick={handleSubmit}>Submit rating</Button>
         </DialogFooter>
       </DialogContent>
