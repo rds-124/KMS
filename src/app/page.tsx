@@ -278,7 +278,7 @@ export default function Home() {
                             <Button asChild size="lg" className="rounded-lg text-lg px-8 py-6">
                                 <Link href="/category/all">Shop Now</Link>
                             </Button>
-                            <Button asChild variant="outline" size="lg" className="rounded-lg text-lg px-8 py-6">
+                            <Button asChild variant="outline" size="lg" className="rounded-lg text-lg px-8 py-6 hover:bg-[#25D366] hover:text-white hover:border-[#25D366]">
                                 <Link href={whatsappUrl} target="_blank">
                                     <WhatsAppIcon /> Order on WhatsApp
                                 </Link>
