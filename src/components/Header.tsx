@@ -101,22 +101,8 @@ export default function Header() {
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center">
               <div className="flex flex-col items-start">
-                  <span className="font-bold font-headline text-3xl leading-none">Karavali</span>
-                  <svg
-                      className="h-2 w-full text-destructive"
-                      viewBox="0 0 100 8"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                      preserveAspectRatio="none"
-                  >
-                      <path
-                          d="M1 4C1 4 5.33333 8 10 4C14.6667 0 18.6667 8 24 4C29.3333 0 33.3333 8 39 4C44.6667 0 48.6667 8 54 4C59.3333 0 63.3333 8 69 4C74.6667 0 79 4 79 4"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                      />
-                  </svg>
-                  <span className="font-medium text-xs tracking-widest uppercase -mt-0.5">
+                  <span className="font-bold font-headline text-3xl leading-none pl-3">Karavali</span>
+                  <span className="font-medium text-xs tracking-widest uppercase">
                       Mangalore Store
                   </span>
               </div>
