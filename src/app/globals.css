@@ -23,6 +23,7 @@
     --border: 20 5.9% 90%;
     --input: 20 5.9% 90%;
     --ring: 147 50% 36%;
+    --radius: 0.8rem;
     --sidebar-background: 36 100% 98%;
     --sidebar-foreground: 20 14.3% 4.1%;
     --sidebar-primary: 147 50% 36%;
@@ -53,6 +54,7 @@
     --border: 12 6.5% 15.1%;
     --input: 12 6.5% 15.1%;
     --ring: 147 50% 42%;
+    --radius: 0.8rem;
     --sidebar-background: 20 14.3% 4.1%;
     --sidebar-foreground: 60 9.1% 97.8%;
     --sidebar-primary: 147 50% 42%;
