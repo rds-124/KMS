@@ -17,6 +17,7 @@ import {
   CheckCircle,
   XCircle,
   Truck,
+  Check,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -325,9 +326,11 @@ export default function AccountPage() {
                                     <div className="text-center mb-4">
                                         {order.isRated ? (
                                             <div>
-                                                <div className="flex items-center justify-center gap-1.5 mb-2 text-green-600">
-                                                    <CheckCircle className="h-4 w-4 fill-current" />
-                                                    <p className="text-sm font-medium">You've already rated this order</p>
+                                                <div className="flex items-center justify-center gap-1.5 mb-2">
+                                                    <div className="w-4 h-4 bg-green-600 rounded-full flex items-center justify-center">
+                                                        <Check className="h-3 w-3 text-white" />
+                                                    </div>
+                                                    <p className="text-sm font-medium text-muted-foreground">You've already rated this order</p>
                                                 </div>
                                                 <Button onClick={() => setRatingOrder(order)} variant="secondary" className="w-full sm:w-auto font-semibold text-primary hover:bg-primary/10 rounded-lg">Edit Rating</Button>
                                             </div>
