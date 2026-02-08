@@ -64,6 +64,21 @@ export default function Header() {
         </div>
       )}
 
+      {/* Mobile Account Button */}
+      <div className="fixed top-4 right-4 z-50 md:hidden">
+        {user ? (
+          <Link href="/account" passHref>
+            <Button variant="ghost" size="icon" className="h-9 w-9 bg-background/80 backdrop-blur-sm rounded-full shadow-md text-foreground" aria-label="Account">
+              <User className="h-4 w-4" />
+            </Button>
+          </Link>
+        ) : (
+          <Button variant="ghost" size="icon" className="h-9 w-9 bg-background/80 backdrop-blur-sm rounded-full shadow-md text-foreground" onClick={handleAuthClick} aria-label="Account">
+            <User className="h-4 w-4" />
+          </Button>
+        )}
+      </div>
+
       {/* Desktop Header */}
       <header className="sticky top-0 z-40 hidden w-full p-2 md:block">
         <div className="container mx-auto flex h-16 items-center justify-between gap-6 rounded-full bg-primary px-4 text-primary-foreground">

@@ -2,25 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, LayoutGrid, ShoppingCart, User } from 'lucide-react';
+import { Home, LayoutGrid, ShoppingCart, Search } from 'lucide-react';
 import { useFirestoreCart } from '@/hooks/use-firestore-cart';
 import { cn } from '@/lib/utils';
-import { useUser, useAuth } from '@/firebase';
-import { initiateAnonymousSignIn } from '@/firebase/non-blocking-login';
 import React from 'react';
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
   const { cartCount } = useFirestoreCart();
-  const { user } = useUser();
-  const auth = useAuth();
 
   // The main navigation items that will appear inside the pill.
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
     { href: '/category/all', icon: LayoutGrid, label: 'Categories' },
     { href: '/cart', icon: ShoppingCart, label: 'Cart' },
-    { href: user ? '/account' : '#', icon: User, label: 'Account' },
+    { href: '#', icon: Search, label: 'Search' },
   ];
 
   // The bottom nav should not appear on admin pages.
@@ -28,10 +24,11 @@ export default function MobileBottomNav() {
     return null;
   }
   
-  const handleAccountClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
-    if (item.label === 'Account' && !user) {
+  const handleSearchClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
+    if (item.label === 'Search') {
         e.preventDefault();
-        initiateAnonymousSignIn(auth);
+        // This is a placeholder. In a real app, this would open a search modal or navigate to a search page.
+        alert("Search functionality is not implemented yet.");
     }
   };
 
@@ -41,23 +38,23 @@ export default function MobileBottomNav() {
      * It uses a relative positioning context for the overlapping logo.
      */
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden">
-      <div className="relative mx-auto flex h-14 max-w-sm items-center">
+      <div className="relative mx-auto flex h-12 max-w-sm items-center">
         
         {/* Main Navigation Pill */}
-        <nav className="flex h-full flex-grow items-center justify-around rounded-full bg-background pr-14 shadow-[0_4px_24px_rgba(0,0,0,0.1)] border border-primary">
+        <nav className="flex h-full flex-grow items-center justify-around rounded-full bg-background pr-16 shadow-[0_4px_24px_rgba(0,0,0,0.1)] border border-primary">
           {navItems.map((item) => {
             // Determine if the current item is active.
             const isActive =
               (item.href === '/' && pathname === '/') ||
               (item.href !== '/' &&
-                item.href !== '#' && // Don't activate account tab when not logged in
+                item.href !== '#' && // Don't activate search tab
                 pathname.startsWith(item.href));
 
             return (
               <Link
                 href={item.href}
                 key={item.label}
-                onClick={(e) => handleAccountClick(e, item)}
+                onClick={(e) => handleSearchClick(e, item)}
                 className={cn(
                   'flex h-full w-full flex-col items-center justify-center gap-1 rounded-full text-xs transition-colors',
                   isActive
