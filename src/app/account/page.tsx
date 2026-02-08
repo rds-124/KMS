@@ -72,10 +72,10 @@ export default function AccountPage() {
 
         <main className="p-4 space-y-6">
             {/* Quick Actions Grid */}
-            <div className="grid grid-cols-4 gap-3 text-center">
+            <div className="grid grid-cols-4 gap-3">
                 {quickActions.map(action => (
-                    <Link href={action.href} key={action.label}>
-                        <Card className="p-3 flex flex-col items-center justify-center aspect-square shadow-sm hover:shadow-md transition-shadow rounded-2xl">
+                    <Link href={action.href} key={action.label} className="block aspect-square">
+                        <Card className="w-full h-full p-3 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow rounded-2xl">
                             <action.icon className="h-6 w-6 text-primary mb-1" />
                             <span className="text-xs font-medium text-muted-foreground">{action.label}</span>
                         </Card>
