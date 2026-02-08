@@ -2,22 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, ShoppingCart, User, Menu, Zap } from "lucide-react";
+import { Search, ShoppingCart, User, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { categories } from "@/lib/categories";
 import { useFirestoreCart } from "@/hooks/use-firestore-cart";
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { useState, useEffect } from "react";
 import { useUser, useAuth } from "@/firebase";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
 import { cn } from "@/lib/utils";
 import { MobileThemeToggle } from "./MobileThemeToggle";
-
+import { ThemeToggle } from "./ThemeToggle";
 
 export default function Header() {
   const { cartCount } = useFirestoreCart();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user } = useUser();
   const auth = useAuth();
   const [isAtTop, setIsAtTop] = useState(true);
@@ -40,7 +44,6 @@ export default function Header() {
     if (!user) {
       initiateAnonymousSignIn(auth);
     }
-    // If user exists, the link will handle navigation
   };
 
   const isHomePage = pathname === '/';
@@ -48,7 +51,6 @@ export default function Header() {
 
   return (
     <>
-      {/* Mobile-only Theme Toggle */}
       {isHomePage && (
         <div className={cn(
           "fixed top-4 left-4 z-50 md:hidden transition-opacity duration-300",
@@ -58,7 +60,6 @@ export default function Header() {
         </div>
       )}
 
-      {/* Mobile Account Button */}
       {showMobileAccountButton && (
         <div className={cn(
           "fixed top-4 right-4 z-50 md:hidden transition-opacity duration-300",
@@ -78,47 +79,29 @@ export default function Header() {
         </div>
       )}
 
-      {/* Desktop Header */}
       <header className="sticky top-0 z-40 hidden w-full p-4 md:block">
         <div className="container mx-auto flex h-16 items-center justify-between gap-4 rounded-2xl bg-primary px-6 text-primary-foreground">
           
-          {/* Left Section: Menu and Brand */}
           <div className="flex items-center gap-4">
-            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
-                  <Menu className="h-6 w-6" />
-                  <span className="sr-only">Open menu</span>
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left">
-                  <div className="flex flex-col h-full">
-                      <div className="border-b p-4">
-                          <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="flex items-center space-x-2">
-                              <span className="font-bold font-headline text-2xl">Karavali Store</span>
-                          </Link>
-                      </div>
-                      <nav className="flex flex-col space-y-4 p-4 text-lg">
-                          {categories.map(category => (
-                            <SheetClose asChild key={category.id}>
-                              <Link
-                                href={`/category/${category.slug}`}
-                                className="font-medium transition-colors hover:text-primary"
-                              >
-                                {category.name}
-                              </Link>
-                            </SheetClose>
-                          ))}
-                      </nav>
-                  </div>
-              </SheetContent>
-            </Sheet>
             <Link href="/" className="flex items-center space-x-2">
               <span className="font-bold font-headline text-2xl">Karavali Store</span>
             </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
+                  Categories <ChevronDown className="ml-2 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                {categories.map((category) => (
+                  <DropdownMenuItem key={category.id} asChild>
+                    <Link href={`/category/${category.slug}`}>{category.name}</Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
-          {/* Center Section: Search Bar */}
           <div className="relative flex-grow max-w-lg">
               <Input 
                   type="search"
@@ -128,27 +111,20 @@ export default function Header() {
               <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           </div>
 
-          {/* Right Section: Actions */}
           <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 text-sm font-semibold">
-                  <Zap className="h-5 w-5 text-yellow-300" />
-                  <span className="text-yellow-300">Order now and get it within <span className="font-bold text-white">15 mins!</span></span>
-              </div>
+              <ThemeToggle className="text-primary-foreground hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10" />
 
               {user ? (
                 <Link href="/account" passHref>
                   <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10" aria-label="Account">
                     <User className="h-5 w-5" />
-                    <span className="sr-only">Account</span>
                   </Button>
                 </Link>
               ) : (
                 <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10" onClick={handleAuthClick} aria-label="Account">
                   <User className="h-5 w-5" />
-                  <span className="sr-only">Account</span>
                 </Button>
               )}
-
 
               <Link href="/cart" passHref>
                   <Button variant="ghost" size="icon" className="relative hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
