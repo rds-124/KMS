@@ -59,7 +59,7 @@ export default function MobileBottomNav() {
                   />
                   {/* Badge for cart item count. */}
                   {item.label === 'Cart' && cartCount > 0 && (
-                    <span className="absolute -top-1.5 -right-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                    <span className="absolute -top-1 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
                       {cartCount}
                     </span>
                   )}
