@@ -100,8 +100,8 @@ export default function Header() {
           
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center">
-              <div className="flex flex-col items-start">
-                  <span className="font-bold font-headline text-3xl leading-none pl-3">Karavali</span>
+              <div className="flex flex-col items-center">
+                  <span className="font-bold font-headline text-3xl leading-none">Karavali</span>
                   <span className="font-medium text-xs tracking-widest uppercase">
                       Mangalore Store
                   </span>
