@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { categories } from "@/lib/categories";
 import { useFirestoreCart } from "@/hooks/use-firestore-cart";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useUser, useAuth } from "@/firebase";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
 import { cn } from "@/lib/utils";
@@ -25,11 +25,24 @@ export default function Header() {
   const { user } = useUser();
   const auth = useAuth();
   const [isAtTop, setIsAtTop] = useState(true);
+  const [showNav, setShowNav] = useState(true);
+  const lastScrollY = useRef(0);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsAtTop(window.scrollY === 0);
+      const currentScrollY = window.scrollY;
+      setIsAtTop(currentScrollY === 0);
+
+      // Hiding navbar logic for desktop
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        // Scrolling down
+        setShowNav(false);
+      } else {
+        // Scrolling up or at the top
+        setShowNav(true);
+      }
+      lastScrollY.current = currentScrollY;
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -79,7 +92,10 @@ export default function Header() {
         </div>
       )}
 
-      <header className="sticky top-0 z-40 hidden w-full p-4 md:block">
+      <header className={cn(
+        "sticky top-0 z-40 hidden w-full p-4 md:block transition-transform duration-300",
+        showNav ? "translate-y-0" : "-translate-y-full"
+      )}>
         <div className="container mx-auto flex h-16 items-center justify-between gap-4 rounded-2xl bg-primary px-6 text-primary-foreground">
           
           <div className="flex items-center gap-4">
