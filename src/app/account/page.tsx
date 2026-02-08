@@ -142,9 +142,6 @@ function RatingDialog({ order, isOpen, onOpenChange }: { order: Order | null, is
                     <DialogTitle className="text-lg font-bold">Rate your order</DialogTitle>
                     <p className="text-sm text-muted-foreground">{order.items.length + order.moreItems} Items • {order.total}</p>
                 </div>
-                 <button onClick={() => onOpenChange(false)} className="p-1 rounded-full absolute top-3.5 right-3.5 opacity-70 hover:opacity-100">
-                    <X className="h-5 w-5" />
-                </button>
             </div>
         </DialogHeader>
 
