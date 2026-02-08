@@ -2,20 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Search, ShoppingCart, User, Menu, ChevronDown, LayoutGrid } from "lucide-react";
+import { Search, ShoppingCart, User, Menu, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 import { categories } from "@/lib/categories";
 import { useFirestoreCart } from "@/hooks/use-firestore-cart";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { useState, useEffect } from "react";
-import { ThemeToggle } from "./ThemeToggle";
 import { useUser, useAuth } from "@/firebase";
 import { initiateAnonymousSignIn } from "@/firebase/non-blocking-login";
 import { cn } from "@/lib/utils";
@@ -86,12 +79,11 @@ export default function Header() {
       )}
 
       {/* Desktop Header */}
-      <header className="sticky top-0 z-40 hidden w-full p-2 md:block">
-        <div className="container mx-auto flex h-16 items-center justify-between gap-6 rounded-full bg-primary px-4 text-primary-foreground">
+      <header className="sticky top-0 z-40 hidden w-full p-4 md:block">
+        <div className="container mx-auto flex h-16 items-center justify-between gap-4 rounded-2xl bg-primary px-6 text-primary-foreground">
           
           {/* Left Section: Menu and Brand */}
-          <div className="flex items-center gap-2">
-            {/* The Sheet component provides an off-canvas menu, primarily for mobile, but linked here for consistency. */}
+          <div className="flex items-center gap-4">
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
@@ -127,35 +119,21 @@ export default function Header() {
           </div>
 
           {/* Center Section: Search Bar */}
-          <div className="relative flex-grow max-w-xl">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <div className="relative flex-grow max-w-lg">
               <Input 
                   type="search"
-                  placeholder="Search for spices, snacks, and more..."
-                  className="w-full rounded-full border-none bg-background text-foreground pl-12 pr-4 h-10 shadow-inner"
+                  placeholder="Search for Grocery, Stores, Vegetable or Meat"
+                  className="w-full rounded-full border-none bg-background text-foreground pl-4 pr-10 h-10 shadow-inner"
               />
+              <Search className="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           </div>
 
           {/* Right Section: Actions */}
-          <div className="flex items-center gap-1">
-              <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" className="hover:bg-primary-foreground/10 focus-visible:bg-primary-foreground/10">
-                          <LayoutGrid className="mr-2 h-5 w-5" />
-                          Categories
-                          <ChevronDown className="ml-1 h-5 w-5" />
-                      </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56">
-                      {categories.map(category => (
-                          <DropdownMenuItem key={category.id} asChild>
-                               <Link href={`/category/${category.slug}`}>{category.name}</Link>
-                          </DropdownMenuItem>
-                      ))}
-                  </DropdownMenuContent>
-              </DropdownMenu>
-
-              <ThemeToggle />
+          <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 text-sm font-semibold">
+                  <Zap className="h-5 w-5 text-yellow-300" />
+                  <span className="text-yellow-300">Order now and get it within <span className="font-bold text-white">15 mins!</span></span>
+              </div>
 
               {user ? (
                 <Link href="/account" passHref>
