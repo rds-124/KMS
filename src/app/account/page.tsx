@@ -160,10 +160,13 @@ export default function AccountPage() {
                                     <p className="font-bold text-lg">{order.id}</p>
                                 </div>
                                 {order.status === 'Delivered' ? (
-                                    <div className="flex items-center text-green-600 font-semibold">
-                                        <CheckCircle className="h-5 w-5 mr-1" />
-                                        <span>Delivered</span>
-                                    </div>
+                                    <Badge
+                                      variant="secondary"
+                                      className="font-semibold bg-green-100 text-green-800 dark:bg-green-800/20 dark:text-green-300 hover:bg-green-100"
+                                    >
+                                      <CheckCircle className="h-4 w-4 mr-1" />
+                                      Delivered
+                                    </Badge>
                                 ) : (
                                     <Badge
                                         variant={order.status === 'In Transit' ? 'secondary' : 'destructive'}
