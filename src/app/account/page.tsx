@@ -133,6 +133,8 @@ function RatingDialog({ order, isOpen, onOpenChange }: { order: Order | null, is
     onOpenChange(false);
   }
 
+  const hasRatings = Object.values(ratings).some(r => r > 0);
+
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md w-full bg-background p-0 flex flex-col h-screen sm:h-auto sm:max-h-[90vh] gap-0 rounded-t-2xl sm:rounded-lg">
@@ -189,7 +191,7 @@ function RatingDialog({ order, isOpen, onOpenChange }: { order: Order | null, is
         </div>
 
         <DialogFooter className="p-4 border-t bg-background flex-shrink-0">
-          <Button size="lg" className="w-full" onClick={handleSubmit}>Submit rating</Button>
+          <Button size="lg" className="w-full rounded-lg" onClick={handleSubmit} disabled={!hasRatings}>Submit rating</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
