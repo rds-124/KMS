@@ -325,7 +325,10 @@ export default function AccountPage() {
                                     <div className="text-center mb-4">
                                         {order.isRated ? (
                                             <div>
-                                                <p className="text-xs text-muted-foreground mb-1.5">You've already rated this order</p>
+                                                <div className="flex items-center justify-center gap-1.5 mb-2 text-green-600">
+                                                    <CheckCircle className="h-4 w-4 fill-current" />
+                                                    <p className="text-sm font-medium">You've already rated this order</p>
+                                                </div>
                                                 <Button onClick={() => setRatingOrder(order)} variant="secondary" className="w-full sm:w-auto font-semibold text-primary hover:bg-primary/10 rounded-lg">Edit Rating</Button>
                                             </div>
                                         ) : (
