@@ -29,9 +29,9 @@ const mockOrders = [
 
 const quickActions = [
     { icon: Package, label: 'My Orders', href: '#' },
-    { icon: MapPin, label: 'Addresses', href: '#' },
+    { icon: MapPin, label: 'Saved Address', href: '#' },
     { icon: Heart, label: 'Wishlist', href: '#' },
-    { icon: Wallet, label: 'Payments', href: '#' },
+    { icon: Wallet, label: 'Payment Modes', href: '#' },
 ];
 
 export default function AccountPage() {
@@ -75,7 +75,7 @@ export default function AccountPage() {
             <div className="grid grid-cols-4 gap-3 text-center">
                 {quickActions.map(action => (
                     <Link href={action.href} key={action.label}>
-                        <Card className="p-3 flex flex-col items-center justify-center aspect-square shadow-sm hover:shadow-md transition-shadow">
+                        <Card className="p-3 flex flex-col items-center justify-center aspect-square shadow-sm hover:shadow-md transition-shadow rounded-2xl">
                             <action.icon className="h-6 w-6 text-primary mb-1" />
                             <span className="text-xs font-medium text-muted-foreground">{action.label}</span>
                         </Card>
