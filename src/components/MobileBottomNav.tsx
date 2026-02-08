@@ -29,10 +29,10 @@ export default function MobileBottomNav() {
      * It uses a relative positioning context for the overlapping logo.
      */
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden">
-      <div className="relative mx-auto flex h-16 max-w-sm items-center">
+      <div className="relative mx-auto flex h-14 max-w-sm items-center">
         
         {/* Main Navigation Pill */}
-        <nav className="flex h-full flex-grow items-center justify-around rounded-full bg-background pr-16 shadow-[0_4px_24px_rgba(0,0,0,0.1)] border border-primary">
+        <nav className="flex h-full flex-grow items-center justify-around rounded-full bg-background pr-14 shadow-[0_4px_24px_rgba(0,0,0,0.1)] border border-primary">
           {navItems.map((item) => {
             // Determine if the current item is active.
             const isActive =
@@ -59,7 +59,7 @@ export default function MobileBottomNav() {
                   />
                   {/* Badge for cart item count. */}
                   {item.label === 'Cart' && cartCount > 0 && (
-                    <span className="absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-primary-foreground text-[10px] font-bold">
+                    <span className="absolute -top-1.5 -right-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
                       {cartCount}
                     </span>
                   )}
@@ -74,9 +74,9 @@ export default function MobileBottomNav() {
         <div className="absolute right-0 top-1/2 -translate-y-1/2">
           <Link
             href="/"
-            className="flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-2 ring-background"
+            className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-2 ring-background"
           >
-            <span className="font-headline text-3xl font-bold">K</span>
+            <span className="font-headline text-2xl font-bold">K</span>
           </Link>
         </div>
 
