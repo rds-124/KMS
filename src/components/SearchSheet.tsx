@@ -71,7 +71,7 @@ export default function SearchSheet({ open, onOpenChange }: SearchSheetProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="h-[100dvh] flex flex-col p-0 bg-background">
+      <SheetContent side="bottom" className="h-[100dvh] flex flex-col p-0 bg-background overflow-hidden">
         <SheetHeader className="p-4 border-b flex-shrink-0">
             <SheetTitle className="sr-only">Search Products</SheetTitle>
             <div className="flex items-center gap-2">
