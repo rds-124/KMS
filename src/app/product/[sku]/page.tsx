@@ -119,7 +119,12 @@ export default function ProductPage() {
 
         {/* Product Details */}
         <div className="space-y-6">
-          <h1 className="text-3xl lg:text-4xl font-headline font-bold">{product.title}</h1>
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-headline font-bold">{product.title}</h1>
+            {product.weight && (
+              <p className="text-muted-foreground text-lg">{product.weight}</p>
+            )}
+          </div>
           
           <div className="flex items-center gap-2">
             <div className="flex items-center">
