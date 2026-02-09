@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from 'react';
@@ -34,7 +35,6 @@ export default function ProductPage() {
   const product = allProducts.find((p) => p.sku === sku);
   const cartItem = product ? getCartItem(product.sku) : undefined;
   
-  const [localQuantity, setLocalQuantity] = useState(1);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -60,10 +60,10 @@ export default function ProductPage() {
     if (!user) {
         initiateAnonymousSignIn(auth);
     }
-    addToCart(product, localQuantity);
+    addToCart(product, 1);
     toast({
       title: "Added to cart",
-      description: `${localQuantity} x ${product.title} has been added.`,
+      description: `1 x ${product.title} has been added.`,
     });
   };
 
@@ -72,16 +72,6 @@ export default function ProductPage() {
       updateCartItemQuantity(cartItem.id, newQuantity);
     }
   };
-  
-  const handleLocalQuantityChange = (change: number) => {
-    setLocalQuantity(prev => {
-        const newQuantity = prev + change;
-        if (newQuantity > 0 && newQuantity <= product.stock_qty) {
-            return newQuantity;
-        }
-        return prev;
-    });
-  }
 
   const formatPrice = (price: number) => {
     if (!isClient) {
@@ -158,39 +148,42 @@ export default function ProductPage() {
 
           <div className="space-y-4">
             {isOutOfStock ? (
-              <Button size="lg" className="w-full" disabled>Out of Stock</Button>
+              <Button size="lg" className="w-full rounded-full" disabled>Out of Stock</Button>
             ) : cartItem ? (
-                <div className="flex items-center gap-4">
-                    <p className='font-semibold'>In Cart:</p>
-                    <div className="flex items-center border rounded-md">
-                    <Button variant="ghost" size="icon" onClick={() => handleQuantityUpdate(cartItem.quantity - 1)} aria-label="Decrease quantity">
-                        <Minus className="h-4 w-4" />
-                    </Button>
-                    <span className="w-12 text-center font-bold tabular-nums">{cartItem.quantity}</span>
-                    <Button variant="ghost" size="icon" onClick={() => handleQuantityUpdate(cartItem.quantity + 1)} aria-label="Increase quantity" disabled={cartItem.quantity >= product.stock_qty}>
-                        <Plus className="h-4 w-4" />
-                    </Button>
+                <div className="flex w-full justify-center">
+                    <div className="flex items-center h-12 rounded-full bg-primary/10 dark:bg-primary/20 p-2 gap-2 border border-primary w-48">
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-8 h-8 rounded-full text-primary hover:bg-primary/20"
+                            onClick={() => handleQuantityUpdate(cartItem.quantity - 1)}
+                            aria-label="Decrease quantity"
+                        >
+                            <Minus className="h-5 w-5" />
+                        </Button>
+                        <span className="flex-1 text-center text-primary font-bold text-lg tabular-nums">
+                            {cartItem.quantity}
+                        </span>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="w-8 h-8 rounded-full text-primary hover:bg-primary/20"
+                            onClick={() => handleQuantityUpdate(cartItem.quantity + 1)}
+                            aria-label="Increase quantity"
+                            disabled={cartItem.quantity >= product.stock_qty}
+                        >
+                            <Plus className="h-5 w-5" />
+                        </Button>
                     </div>
                 </div>
             ) : (
-              <div className="flex items-center gap-4">
-                <div className="flex items-center border rounded-md">
-                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(-1)} aria-label="Decrease quantity">
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="w-12 text-center font-bold tabular-nums">{localQuantity}</span>
-                  <Button variant="ghost" size="icon" onClick={() => handleLocalQuantityChange(1)} aria-label="Increase quantity">
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-                <Button size="lg" className="flex-1 rounded-full" onClick={handleAddToCart}>
+                <Button size="lg" className="w-full rounded-full" onClick={handleAddToCart}>
                   Add to Cart
                 </Button>
-              </div>
             )}
             
             {isOutOfStock && (
-                <Button variant="outline" className='w-full'>Notify Me When Available</Button>
+                <Button variant="outline" className='w-full rounded-full'>Notify Me When Available</Button>
             )}
           </div>
           
