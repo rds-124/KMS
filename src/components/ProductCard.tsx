@@ -118,8 +118,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             onClick={toggleWishlist}
           >
             <Heart className={cn(
-                "h-5 w-5 text-destructive transition-all",
-                isWishlisted ? "fill-destructive" : "fill-transparent"
+                "h-5 w-5 text-red-500 transition-all",
+                isWishlisted ? "fill-red-500" : "fill-transparent"
             )} />
             <span className="sr-only">Add to wishlist</span>
           </Button>
