@@ -78,7 +78,7 @@ export default function SearchSheet({ open, onOpenChange }: SearchSheetProps) {
                     <Input
                         type="search"
                         placeholder="Search for products..."
-                        className="w-full rounded-full bg-muted pl-10 pr-4 h-11"
+                        className="w-full rounded-full bg-muted pl-10 pr-4 h-11 text-base"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         autoFocus
