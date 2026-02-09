@@ -5,6 +5,7 @@ import {
   Sheet,
   SheetContent,
   SheetHeader,
+  SheetTitle,
 } from '@/components/ui/sheet';
 import { Input } from '@/components/ui/input';
 import { products as allProducts } from '@/lib/products';
@@ -72,6 +73,7 @@ export default function SearchSheet({ open, onOpenChange }: SearchSheetProps) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-[100dvh] flex flex-col p-0 bg-background">
         <SheetHeader className="p-4 border-b flex-shrink-0">
+            <SheetTitle className="sr-only">Search Products</SheetTitle>
             <div className="flex items-center gap-2">
                 <div className="relative flex-grow">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
