@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -138,13 +139,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* This new parent section provides a continuous background for the two sections below. */}
-      {/* A light secondary color gives a soft, premium feel. */}
-      <section className="bg-secondary">
+      {/* This section now uses the default background, allowing the pattern to show through. */}
+      <section>
         <div className="container mx-auto px-4 py-12 md:py-20 space-y-12 md:space-y-20">
 
           {/* About Us Teaser Section */}
-          {/* This card has a semi-transparent background image to create a textured, premium feel. */}
           <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
             {aboutUsFarmBgImage && (
                 <Image
@@ -198,7 +197,6 @@ export default function Home() {
                 <h2 className="text-3xl font-headline font-bold text-center mb-10">Why Choose Karavali Mangalore Store?</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 {whyChooseUsBadges.map((badge, index) => (
-                    // These cards have their own background and a stronger shadow to stand out from the new background.
                     <Card key={index} className="bg-card text-center p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="flex flex-col items-center justify-center gap-4 p-0">
                         <div className="bg-primary/10 p-3 rounded-full">
