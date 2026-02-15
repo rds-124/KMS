@@ -160,9 +160,14 @@ export default function Home() {
                 <h2 className="text-3xl md:text-4xl font-headline font-bold">
                   From Our Family to Your Home
                 </h2>
-                <p className="mt-4 text-muted-foreground max-w-xl mx-auto md:mx-0">
-                  Since 2007, our family has been proudly running a small shop in Bangalore, dedicated to bringing you the authentic flavors of coastal Karnataka. What started with our dad's passion for genuine Karavali products has grown into a trusted local favorite, known for its quality and freshness.
-                </p>
+                <div className="mt-4 text-muted-foreground max-w-xl mx-auto md:mx-0 space-y-4">
+                  <p>
+                    Established in 2007, Mangalore Store has been a trusted family-run shop in Bengaluru, founded and managed by our father and mother. Built on values of quality, authenticity, and customer trust, the store has become a reliable destination for genuine Karavali and Malnad products.
+                  </p>
+                  <p>
+                    Karavali Mangalore Store carries forward this legacy, combining tradition with modern convenience to serve customers across Bengaluru and India.
+                  </p>
+                </div>
                 <Button asChild size="lg" className="mt-8">
                   <Link href="/about">Read Our Story</Link>
                 </Button>
