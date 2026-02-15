@@ -40,7 +40,7 @@ export default function AboutPage() {
               <h2 className="text-3xl font-headline font-bold mb-4 text-center md:text-left">The Birth of Karavali Mangalore Store</h2>
               <div className="space-y-4 text-muted-foreground md:text-lg">
                 <p>
-                  As demand grew beyond our neighborhood, we realized that many people across Bengaluru — and even across India — were looking for authentic coastal products they could trust.
+                  As demand grew beyond our neighborhood, we realized that many people across Bengaluru and across India were looking for authentic coastal products they could trust.
                 </p>
                 <p>
                   That is how Karavali Mangalore Store was born.
