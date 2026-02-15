@@ -162,10 +162,10 @@ export default function Home() {
                 </h2>
                 <div className="mt-4 text-muted-foreground max-w-xl mx-auto md:mx-0 space-y-4">
                   <p>
-                    Established in 2007, Mangalore Store has been a trusted family-run shop in Bengaluru, founded and managed by our father and mother. Built on values of quality, authenticity, and customer trust, the store has become a reliable destination for genuine Karavali and Malnad products.
+                    Established in 2007, Mangalore Store has been a trusted family-run shop in Bengaluru, founded and managed by our father and mother. Built on values of quality, authenticity, and customer trust, the store has grown into a reliable destination for genuine Karavali and Malnad products.
                   </p>
                   <p>
-                    Karavali Mangalore Store carries forward this legacy, combining tradition with modern convenience to serve customers across Bengaluru and India.
+                    Karavali Mangalore Store carries forward this legacy — blending tradition with modern convenience to serve customers across Bengaluru and India.
                   </p>
                 </div>
                 <Button asChild size="lg" className="mt-8">
