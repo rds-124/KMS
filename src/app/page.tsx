@@ -65,7 +65,7 @@ export default function Home() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 max-w-4xl p-8">
           <h1 className="text-4xl md:text-6xl font-headline font-bold text-shadow-lg">
-            Experience the Essence of Karavali
+            Bringing the True Taste of Coastal Karnataka to Your Home
           </h1>
           <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
             Shop authentic Karavali & Mangalore snacks, spices, oils, pickles and Malnad specialties online with doorstep delivery in Bengaluru and across India.
