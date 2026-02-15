@@ -68,7 +68,7 @@ export default function Home() {
             Experience the Essence of Karavali
           </h1>
           <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
-            Discover authentic spices, traditional crafts, and unique delicacies from the coastal heart of Karnataka.
+            Shop authentic Karavali & Mangalore snacks, spices, oils, pickles and Malnad specialties online with doorstep delivery in Bengaluru and across India.
           </p>
           <Button asChild size="lg" className="mt-8">
             <Link href="/category/all">Shop Now</Link>
