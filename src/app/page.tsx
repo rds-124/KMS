@@ -81,8 +81,8 @@ export default function Home() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {trustBadges.map((badge, index) => (
             <div key={index} className="group rounded-3xl bg-card p-8 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 shadow-lg transition-transform group-hover:scale-105">
-                    <badge.icon className="h-10 w-10 text-primary" />
+                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105">
+                    <badge.icon className="h-10 w-10 text-accent" />
                 </div>
                 <h3 className="text-xl font-bold text-foreground">{badge.text}</h3>
                 <p className="mt-2 text-muted-foreground">{badge.description}</p>
