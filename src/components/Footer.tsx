@@ -30,20 +30,24 @@ export default function Footer() {
               Bringing the authentic taste and culture of Karavali right to your doorstep.
             </p>
           </div>
-          {linkSections.map((section) => (
-            <div key={section.title}>
-              <h4 className="font-bold tracking-wide uppercase">{section.title}</h4>
-              <ul className="mt-4 space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <Link href={link.href} className="text-sm hover:text-primary transition-colors">
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          
+          <div className="grid grid-cols-2 gap-8 sm:contents">
+            {linkSections.map((section) => (
+              <div key={section.title}>
+                <h4 className="font-bold tracking-wide uppercase">{section.title}</h4>
+                <ul className="mt-4 space-y-2">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <Link href={link.href} className="text-sm hover:text-primary transition-colors">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
           <div>
             <h4 className="font-bold tracking-wide uppercase">Our Location</h4>
             <div className="mt-4 flex items-start gap-2 text-sm">
