@@ -78,14 +78,14 @@ export default function Home() {
 
       {/* Trust Badges Section */}
       <section className="container mx-auto px-4">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {trustBadges.map((badge, index) => (
-            <div key={index} className="group rounded-3xl bg-card p-8 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105">
-                    <badge.icon className="h-10 w-10 text-accent" />
+            <div key={index} className="group rounded-3xl bg-card p-4 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl md:p-6">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
+                    <badge.icon className="h-8 w-8 text-accent sm:h-10 sm:w-10" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{badge.text}</h3>
-                <p className="mt-2 text-muted-foreground">{badge.description}</p>
+                <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
+                <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
             </div>
           ))}
         </div>
