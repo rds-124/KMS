@@ -94,10 +94,10 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {trustBadges.map((badge, index) => (
             <div key={index} className="group rounded-3xl bg-card p-4 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl md:p-6">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
-                    <badge.icon className="h-8 w-8 text-accent sm:h-10 sm:w-10" />
+                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
+                    <badge.icon className="h-6 w-6 text-accent sm:h-10 sm:w-10" />
                 </div>
-                <h3 className="text-base font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
+                <h3 className="text-sm font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
                 <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
             </div>
           ))}
@@ -106,7 +106,7 @@ export default function Home() {
 
       {/* Category Showcase */}
       <section className="container mx-auto px-4">
-        <h2 className="text-3xl font-headline font-bold text-center mb-8">🏪 From Our Shelves</h2>
+        <h2 className="text-3xl font-headline font-bold text-center md:text-left mb-8">🏪 From Our Shelves</h2>
         <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
           {categories.slice(0, 5).map((category) => {
             const categoryImage = PlaceHolderImages.find(p => p.id === category.imageId);
@@ -227,7 +227,7 @@ export default function Home() {
                 />
             )}
             <div className="relative z-10">
-                <h2 className="text-3xl font-headline font-bold text-center mb-10">Why Choose Karavali Mangalore Store?</h2>
+                <h2 className="text-3xl font-headline font-bold text-center md:text-left mb-10">Why Choose Karavali Mangalore Store?</h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 {whyChooseUsBadges.map((badge, index) => (
                     <Card key={index} className="bg-card text-center p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
@@ -256,7 +256,7 @@ export default function Home() {
                 />
             )}
             <div className="relative z-10">
-                <h2 className="text-3xl font-headline font-bold text-center mb-10">What Our<br className="md:hidden" /> Customers Say</h2>
+                <h2 className="text-3xl font-headline font-bold text-center md:text-left mb-10">What Our<br className="md:hidden" /> Customers Say</h2>
                 <ReviewCarousel />
             </div>
           </div>
