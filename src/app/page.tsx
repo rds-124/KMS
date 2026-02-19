@@ -254,7 +254,7 @@ export default function Home() {
                 />
             )}
             <div className="relative z-10">
-                <h2 className="text-3xl font-headline font-bold text-center mb-10">What Our Customers Say</h2>
+                <h2 className="text-3xl font-headline font-bold text-center mb-10">What Our<br className="md:hidden" /> Customers Say</h2>
                 <ReviewCarousel />
             </div>
           </div>
