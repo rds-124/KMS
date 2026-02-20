@@ -7,6 +7,7 @@ import { useFirestoreCart } from '@/hooks/use-firestore-cart';
 import { cn } from '@/lib/utils';
 import React, { useState } from 'react';
 import SearchSheet from './SearchSheet';
+import Image from 'next/image';
 
 export default function MobileBottomNav() {
   const pathname = usePathname();
@@ -103,9 +104,9 @@ export default function MobileBottomNav() {
           <div className="absolute right-0 top-1/2 -translate-y-1/2">
             <Link
               href="/"
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-[0_4px_12px_rgba(0,0,0,0.2)] ring-2 ring-background"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-primary-foreground shadow-[0_4px_12px_rgba(0,0,0,0.2)] ring-2 ring-background overflow-hidden"
             >
-              <span className="font-headline text-2xl font-bold">K</span>
+              <Image src="/logo.png" alt="Karavali Store Logo" width={56} height={56} />
             </Link>
           </div>
 
