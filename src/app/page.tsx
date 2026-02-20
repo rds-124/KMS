@@ -276,13 +276,12 @@ export default function Home() {
               <div className="relative z-10">
                 <div className="p-8 md:p-10">
                     <div className="flex justify-center items-center gap-4 mb-8">
-                        <Truck className="w-12 h-12 text-primary" strokeWidth={1.5} />
-                        <h2 className="text-3xl font-bold text-primary">Fast & Reliable Delivery</h2>
+                        <h2 className="text-3xl font-headline font-bold text-foreground">Fast &amp; Reliable Delivery</h2>
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-muted-foreground">
                         <div className="flex flex-col items-center gap-2">
                             <MapPin className="w-8 h-8 text-accent" />
-                            <p className="font-semibold">Delivering in Bengaluru<br />& Across India</p>
+                            <p className="font-semibold">Delivering in Bengaluru<br />&amp; Across India</p>
                         </div>
                         <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-accent/50 px-4">
                             <Clock className="w-8 h-8 text-accent" />
