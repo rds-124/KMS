@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useState, useMemo } from "react";
@@ -305,7 +304,7 @@ export default function Home() {
                     </div>
                     <div className="p-8 text-center space-y-5">
                         <h3 className="font-headline text-4xl text-primary">Taste Authentic Karavali at Home</h3>
-                        <p className="text-xl font-semibold">Order Now & Bring Home the Flavors of Karavali!</p>
+                        <p className="text-xl font-semibold">Fresh. Authentic. Delivered.</p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Button asChild size="lg" className="rounded-lg text-lg px-8 py-6">
                                 <Link href="/category/all">Shop Now</Link>
@@ -330,4 +329,3 @@ export default function Home() {
     </div>
   );
 }
-
