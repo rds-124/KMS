@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useState, useMemo } from "react";
@@ -314,6 +315,9 @@ export default function Home() {
                                     <WhatsAppIcon /> Order on WhatsApp
                                 </Link>
                             </Button>
+                        </div>
+                        <div className="text-sm text-muted-foreground">
+                            ⭐ Trusted by 500+ families since 2007
                         </div>
                         <div className="flex items-center justify-center gap-2 text-accent font-bold pt-4">
                             <CheckCircle className="w-5 h-5"/>
