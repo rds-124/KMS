@@ -26,11 +26,11 @@ export default function MobileBottomNav() {
   if (pathname.startsWith('/admin')) {
     return null;
   }
-  
+
   const handleSearchClick = (e: React.MouseEvent, item: typeof navItems[0]) => {
     if (item.label === 'Search') {
-        e.preventDefault();
-        setIsSearchOpen(true);
+      e.preventDefault();
+      setIsSearchOpen(true);
     }
   };
 
@@ -62,16 +62,22 @@ export default function MobileBottomNav() {
 
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:hidden">
-        <div className="relative mx-auto flex h-12 max-w-sm items-center">
-          
-          <nav className="flex h-full flex-grow items-center justify-around rounded-full bg-background pr-16 shadow-[0_4px_24px_rgba(0,0,0,0.1)] border border-primary">
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-[94%] max-w-md z-50 md:hidden">
+        <div
+          className="relative h-[52px] bg-white rounded-full border-[2.5px] border-[#008744] flex items-center justify-between px-2"
+          style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.06), 0 8px 28px rgba(0,0,0,0.10), 0 24px 56px rgba(0,0,0,0.07)' }}
+        >
+
+          {/* Navigation Items Area */}
+          <nav className="flex flex-grow items-center justify-around gap-4 pl-4 pr-16 h-full">
             {navItems.map((item) => {
               const isActive =
                 (item.href === '/' && pathname === '/') ||
                 (item.href !== '/' &&
-                  item.href !== '#' && 
+                  item.href !== '#' &&
                   pathname.startsWith(item.href));
+
+              const Icon = item.icon;
 
               return (
                 <Link
@@ -79,34 +85,47 @@ export default function MobileBottomNav() {
                   key={item.label}
                   onClick={(e) => handleNavClick(e, item)}
                   className={cn(
-                    'relative overflow-hidden flex h-full w-full flex-col items-center justify-center gap-1 rounded-full text-xs transition-colors',
+                    'relative flex flex-col items-center justify-center gap-0.5 transition-all duration-300 transform active:scale-90',
                     isActive
-                      ? 'text-primary font-bold'
-                      : 'text-muted-foreground hover:text-primary'
+                      ? 'text-[#008744]'
+                      : 'text-[#71717A]'
                   )}
                 >
-                  <div className="relative z-10">
-                    <item.icon
+                  <div className="relative">
+                    <Icon
                       className={cn('h-6 w-6', isActive && 'fill-current')}
                     />
                     {item.label === 'Cart' && cartCount > 0 && (
-                      <span className="absolute -top-1 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-primary-foreground text-xs font-bold">
+                      <span className="absolute -top-0.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#008744] text-white text-[9px] font-bold">
                         {cartCount}
                       </span>
                     )}
                   </div>
-                  <span className="text-[10px] z-10">{item.label}</span>
+                  <span className={cn(
+                    "text-[11px] leading-none mt-1 whitespace-nowrap",
+                    isActive ? "font-bold" : "font-medium"
+                  )}>
+                    {item.label}
+                  </span>
                 </Link>
               );
             })}
           </nav>
-          
-          <div className="absolute right-0 top-1/2 -translate-y-1/2">
+
+          {/* Right Overlapping Circular Brand Logo */}
+          <div className="absolute -right-3 top-1/2 -translate-y-1/2 z-20">
             <Link
               href="/"
-              className="flex h-14 w-14 items-center justify-center rounded-full bg-background text-primary-foreground shadow-[0_4px_12px_rgba(0,0,0,0.2)] ring-2 ring-background overflow-hidden"
+              className="relative flex h-[78px] w-[78px] items-center justify-center rounded-full bg-white overflow-hidden transition-transform active:scale-95 border border-black/5"
+              style={{ boxShadow: '0 4px 10px rgba(0,0,0,0.08), 0 10px 28px rgba(0,0,0,0.10)' }}
             >
-              <Image src="/logo.png" alt="Karavali Store Logo" width={56} height={56} />
+              <Image
+                src="/navbar-logo.png"
+                alt="Karavali Store Logo"
+                fill
+                className="w-full h-full object-contain scale-[2.1] translate-y-[2px]"
+                priority
+              />
             </Link>
           </div>
 

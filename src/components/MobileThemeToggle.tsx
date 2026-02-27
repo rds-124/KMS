@@ -17,7 +17,7 @@ export function MobileThemeToggle() {
     <Button
       variant="ghost"
       size="icon"
-      className="h-9 w-9 bg-background/80 backdrop-blur-sm rounded-full shadow-md"
+      className="h-10 w-10 bg-white/10 dark:bg-black/20 backdrop-blur-md rounded-full border border-white/20 shadow-lg text-white"
       onClick={toggleTheme}
       aria-label="Toggle theme"
     >

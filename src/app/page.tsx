@@ -16,6 +16,7 @@ import ReviewCarousel from "@/components/ReviewCarousel";
 import { cn } from "@/lib/utils";
 
 const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
+const heroMobileImage = PlaceHolderImages.find(p => p.id === 'hero-mobile');
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState('All');
@@ -23,7 +24,7 @@ export default function Home() {
 
   const featuredProducts = useMemo(() => {
     if (activeFilter === 'All') {
-        return products.slice(0, 8);
+      return products.slice(0, 8);
     }
     const categorySlug = activeFilter.toLowerCase();
     return products.filter(p => p.category === categorySlug).slice(0, 8);
@@ -57,7 +58,7 @@ export default function Home() {
       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.886-.001 2.269.655 4.383 1.905 6.195l-1.256 4.595 4.672-1.225z" />
     </svg>
   );
-  
+
   const phoneNumber = '+911234567890';
   const message = "Hello! I want to place an order from Karavali Store.";
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -65,29 +66,83 @@ export default function Home() {
   return (
     <div className="space-y-12 md:space-y-20">
       {/* Hero Section */}
-      <section className="relative h-[60vh] md:h-[70vh] w-full flex items-center justify-center text-center text-white">
-        {heroImage && (
-          <Image
-            src={heroImage.imageUrl}
-            alt={heroImage.description}
-            fill
-            className="object-cover"
-            data-ai-hint={heroImage.imageHint}
-            priority
-          />
-        )}
-        <div className="absolute inset-0 bg-black/50" />
-        <div className="relative z-10 max-w-4xl p-8">
-          <h1 className="text-4xl md:text-6xl font-headline font-bold text-shadow-lg">
-            Bringing the True Taste of Coastal Karnataka to Your Home
-          </h1>
-          <p className="mt-4 text-lg md:text-xl max-w-2xl mx-auto">
-            Authentic Karavali & Malnad heritage foods rooted in tradition and crafted with care.
-          </p>
-          <Button asChild size="lg" className="mt-8">
-            <Link href="/category/all">Shop Now</Link>
-          </Button>
+      <section className="relative h-[100dvh] w-full flex items-center justify-center text-center text-white overflow-hidden md:h-auto md:block bg-black">
+        {/* Desktop Rendering (Artwork Full-Width Banner) */}
+        <div className="hidden md:block relative w-full h-auto">
+          {heroImage && (
+            <img
+              src={heroImage.imageUrl}
+              alt={heroImage.description}
+              className="w-full h-auto block"
+            />
+          )}
+
+
+
+          {/* Desktop Overlay Content - Centered on the image space */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-full max-w-7xl px-12 text-center animate-in fade-in zoom-in-95 duration-1000">
+              <h1 className="text-4xl lg:text-5xl xl:text-6xl font-headline font-bold leading-[1.2] tracking-tight text-shadow-xl mb-8">
+                Bringing the True Taste of <br className="hidden lg:block" /> Coastal Karnataka to Your Home
+              </h1>
+
+              <div className="space-y-10">
+                <p className="text-xl lg:text-2xl font-light tracking-wide text-white/90 text-shadow-md max-w-2xl mx-auto leading-relaxed">
+                  Authentic Karavali & Malnad heritage foods rooted in tradition and crafted with care.
+                </p>
+
+                <div className="pt-4">
+                  <Button asChild size="lg" className="h-16 px-12 text-xl font-bold rounded-xl bg-[#008744] hover:bg-[#007038] text-white border-none shadow-lg transition-all duration-500 hover:scale-110 active:scale-95">
+                    <Link href="/category/all">Shop Now</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        {/* Mobile Rendering (Preserved Cover) */}
+        <div className="md:hidden absolute inset-0">
+          {heroMobileImage && (
+            <Image
+              src={heroMobileImage.imageUrl}
+              alt={heroMobileImage.description}
+              fill
+              className="object-cover object-center"
+              sizes="100vw"
+              data-ai-hint={heroMobileImage.imageHint}
+              priority
+            />
+          )}
+        </div>
+        {/* Cinematic Overlay: Restored vibrancy for both mobile & desktop */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-transparent to-black/35 md:from-black/10 md:via-transparent md:to-black/20 pointer-events-none" />
+
+        {/* Mobile-Only Hero Content (Stacked but proportional) */}
+        <div className="md:hidden relative z-10 w-full h-full flex flex-col items-center justify-between px-6 py-[12vh]">
+          {/* Upper Middle Heading Area */}
+          <div className="w-full max-w-5xl relative -top-16">
+            <h1 className="text-[clamp(1.9rem,9vw,2.3rem)] leading-[1.1] font-headline font-bold tracking-tight text-shadow-xl animate-in fade-in slide-in-from-top-4 duration-1000">
+              Bringing the True Taste of Coastal Karnataka to Your Home
+            </h1>
+          </div>
+
+          <div className="mt-[12vh] w-full max-w-3xl px-6 flex flex-col items-center gap-10 animate-in fade-in zoom-in-95 duration-1000 delay-500 relative -top-4">
+            <div className="relative group">
+              <div className="absolute inset-0 bg-black/20 blur-2xl rounded-full scale-150 transform -z-10" />
+              <p className="text-[clamp(1rem,4.5vw,1.125rem)] font-light tracking-wide text-white text-shadow-md leading-relaxed max-w-2xl px-4 py-2 text-center">
+                Authentic Karavali & Malnad heritage foods rooted in tradition and crafted with care.
+              </p>
+            </div>
+            <Button asChild size="lg" className="h-14 px-12 text-xl font-semibold rounded-2xl bg-[#008744] hover:bg-[#007038] text-white border-none shadow-[0_20px_50px_rgba(0,135,68,0.4)] transition-all duration-500 hover:scale-110 active:scale-95 relative -top-[5vh]">
+              <Link href="/category/all">Shop Now</Link>
+            </Button>
+          </div>
+
+          {/* Spacer to preserve bottom Kambala scene */}
+          <div className="h-[10vh]" />
+        </div>
+
       </section>
 
       {/* Trust Badges Section */}
@@ -95,11 +150,11 @@ export default function Home() {
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4 lg:gap-8">
           {trustBadges.map((badge, index) => (
             <div key={index} className="group rounded-3xl bg-card p-4 text-center shadow-lg transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl md:p-6">
-                <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
-                    <badge.icon className="h-6 w-6 text-accent sm:h-10 sm:w-10" />
-                </div>
-                <h3 className="text-sm font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
-                <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
+              <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
+                <badge.icon className="h-6 w-6 text-accent sm:h-10 sm:w-10" />
+              </div>
+              <h3 className="text-sm font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
+              <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
             </div>
           ))}
         </div>
@@ -130,10 +185,10 @@ export default function Home() {
             )
           })}
           <Link href="/category/all" className="group flex flex-col items-center justify-center bg-accent/10 dark:bg-accent/20 p-3 md:p-4 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300 text-center aspect-[1/1]">
-              <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white dark:bg-slate-800 rounded-full mb-2 shadow-md transition-transform duration-300 group-hover:scale-110">
-                  <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-accent" />
-              </div>
-              <span className="font-bold text-sm md:text-base text-accent">See all</span>
+            <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white dark:bg-slate-800 rounded-full mb-2 shadow-md transition-transform duration-300 group-hover:scale-110">
+              <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-accent" />
+            </div>
+            <span className="font-bold text-sm md:text-base text-accent">See all</span>
           </Link>
         </div>
       </section>
@@ -141,20 +196,20 @@ export default function Home() {
       {/* Featured Products */}
       <section className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8 gap-4">
-            <h2 className="text-3xl font-headline font-bold text-center md:text-left">Handpicked for You</h2>
-            <div className="flex flex-nowrap items-center justify-start gap-2 overflow-x-auto pb-2 md:flex-wrap md:justify-end md:overflow-x-visible md:pb-0">
-                {filters.map((filter) => (
-                <Button
-                    key={filter}
-                    variant={activeFilter === filter ? 'default' : 'outline'}
-                    size="sm"
-                    className="rounded-full px-4"
-                    onClick={() => setActiveFilter(filter)}
-                >
-                    {filter}
-                </Button>
-                ))}
-            </div>
+          <h2 className="text-3xl font-headline font-bold text-center md:text-left">Handpicked for You</h2>
+          <div className="flex flex-nowrap items-center justify-start gap-2 overflow-x-auto pb-2 md:flex-wrap md:justify-end md:overflow-x-visible md:pb-0">
+            {filters.map((filter) => (
+              <Button
+                key={filter}
+                variant={activeFilter === filter ? 'default' : 'outline'}
+                size="sm"
+                className="rounded-full px-4"
+                onClick={() => setActiveFilter(filter)}
+              >
+                {filter}
+              </Button>
+            ))}
+          </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
           {featuredProducts.map((product) => (
@@ -175,13 +230,13 @@ export default function Home() {
           {/* About Us Teaser Section */}
           <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
             {aboutUsFarmBgImage && (
-                <Image
-                    src={aboutUsFarmBgImage.imageUrl}
-                    alt={aboutUsFarmBgImage.description}
-                    fill
-                    className="object-cover opacity-10 dark:opacity-20"
-                    data-ai-hint={aboutUsFarmBgImage.imageHint}
-                />
+              <Image
+                src={aboutUsFarmBgImage.imageUrl}
+                alt={aboutUsFarmBgImage.description}
+                fill
+                className="object-cover opacity-10 dark:opacity-20"
+                data-ai-hint={aboutUsFarmBgImage.imageHint}
+              />
             )}
             <div className="grid md:grid-cols-2 gap-12 items-center relative z-10">
               {/* Text Content */}
@@ -203,45 +258,45 @@ export default function Home() {
               </div>
               {/* Image Content */}
               {aboutShopImage && (
-                  <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden">
+                <div className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden">
                   <Image
-                      src={aboutShopImage.imageUrl}
-                      alt={aboutShopImage.description}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={aboutShopImage.imageHint}
+                    src={aboutShopImage.imageUrl}
+                    alt={aboutShopImage.description}
+                    fill
+                    className="object-cover"
+                    data-ai-hint={aboutShopImage.imageHint}
                   />
-                  </div>
+                </div>
               )}
             </div>
           </div>
 
           {/* Why Choose Us Section */}
           <div className="bg-background rounded-3xl p-8 md:p-12 shadow-lg overflow-hidden relative">
-             {aboutUsFarmBgImage && (
-                <Image
-                    src={aboutUsFarmBgImage.imageUrl}
-                    alt={aboutUsFarmBgImage.description}
-                    fill
-                    className="object-cover opacity-10 dark:opacity-20"
-                    data-ai-hint={aboutUsFarmBgImage.imageHint}
-                />
+            {aboutUsFarmBgImage && (
+              <Image
+                src={aboutUsFarmBgImage.imageUrl}
+                alt={aboutUsFarmBgImage.description}
+                fill
+                className="object-cover opacity-10 dark:opacity-20"
+                data-ai-hint={aboutUsFarmBgImage.imageHint}
+              />
             )}
             <div className="relative z-10">
-                <h2 className="text-3xl font-headline font-bold text-center md:text-left mb-10">Why Choose Karavali Mangalore Store?</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+              <h2 className="text-3xl font-headline font-bold text-center md:text-left mb-10">Why Choose Karavali Mangalore Store?</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
                 {whyChooseUsBadges.map((badge, index) => (
-                    <Card key={index} className="bg-card text-center p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
+                  <Card key={index} className="bg-card text-center p-6 rounded-3xl shadow-lg hover:shadow-xl transition-shadow">
                     <CardContent className="flex flex-col items-center justify-center gap-4 p-0">
-                        <div className="bg-primary/10 p-3 rounded-full">
-                            <badge.icon className="w-8 h-8 text-primary" />
-                        </div>
-                        <h3 className="font-bold text-lg">{badge.title}</h3>
-                        <p className="text-sm text-muted-foreground">{badge.description}</p>
+                      <div className="bg-primary/10 p-3 rounded-full">
+                        <badge.icon className="w-8 h-8 text-primary" />
+                      </div>
+                      <h3 className="font-bold text-lg">{badge.title}</h3>
+                      <p className="text-sm text-muted-foreground">{badge.description}</p>
                     </CardContent>
-                    </Card>
+                  </Card>
                 ))}
-                </div>
+              </div>
             </div>
           </div>
 
@@ -253,71 +308,71 @@ export default function Home() {
 
           {/* Final CTA Section */}
           <div className="bg-background rounded-3xl shadow-lg overflow-hidden relative">
-              {aboutUsFarmBgImage && (
-                <Image
-                    src={aboutUsFarmBgImage.imageUrl}
-                    alt={aboutUsFarmBgImage.description}
-                    fill
-                    className="object-cover opacity-10 dark:opacity-20"
-                    data-ai-hint={aboutUsFarmBgImage.imageHint}
-                />
-              )}
-              <div className="relative z-10">
-                <div className="p-8 md:p-10">
-                    <div className="flex justify-center items-center gap-4 mb-8">
-                        <h2 className="text-3xl font-headline font-bold text-foreground text-center md:text-left">Fast & Reliable Delivery</h2>
-                    </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-muted-foreground">
-                        <div className="flex flex-col items-center gap-2">
-                            <MapPin className="w-6 h-6 text-accent" />
-                            <p className="font-semibold">Delivering in Bengaluru<br />&amp; Across India</p>
-                        </div>
-                        <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-accent/50 px-4">
-                            <Clock className="w-6 h-6 text-accent" />
-                            <p className="font-semibold">Orders Dispatched<br />in 24 Hours</p>
-                        </div>
-                        <div className="flex flex-col items-center gap-2">
-                            <PhoneCall className="w-6 h-6 text-accent" />
-                            <p className="font-semibold">24/7 Customer Support</p>
-                        </div>
-                    </div>
+            {aboutUsFarmBgImage && (
+              <Image
+                src={aboutUsFarmBgImage.imageUrl}
+                alt={aboutUsFarmBgImage.description}
+                fill
+                className="object-cover opacity-10 dark:opacity-20"
+                data-ai-hint={aboutUsFarmBgImage.imageHint}
+              />
+            )}
+            <div className="relative z-10">
+              <div className="p-8 md:p-10">
+                <div className="flex justify-center items-center gap-4 mb-8">
+                  <h2 className="text-3xl font-headline font-bold text-foreground text-center md:text-left">Fast & Reliable Delivery</h2>
                 </div>
-
-                <div className="border-t-2 border-dashed border-accent/50"></div>
-
-                <div className="grid md:grid-cols-2 items-center">
-                    <div className="relative w-full h-64 md:h-full min-h-[300px] order-last md:order-first">
-                        {ctaSnacksImage && (
-                            <Image src={ctaSnacksImage.imageUrl} alt={ctaSnacksImage.description} fill className="object-cover" data-ai-hint={ctaSnacksImage.imageHint} />
-                        )}
-                    </div>
-                    <div className="p-8 text-center space-y-5">
-                        <h3 className="font-headline text-4xl text-foreground">Taste Authentic Karavali at Home</h3>
-                        <p className="text-xl font-semibold text-[#3A3A3A] dark:text-muted-foreground">Fresh. Authentic. Delivered.</p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Button asChild size="lg" className="rounded-lg text-lg px-8 py-6">
-                                <Link href="/category/all">Shop Now</Link>
-                            </Button>
-                            <Button asChild variant="outline" size="lg" className="rounded-lg text-lg px-8 py-6 border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white">
-                                <Link href={whatsappUrl} target="_blank">
-                                    <WhatsAppIcon /> Order on WhatsApp
-                                </Link>
-                            </Button>
-                        </div>
-                        <div className="text-sm text-muted-foreground font-bold">
-                            ⭐ Trusted by 500+ families since 2007
-                        </div>
-                        <div className="flex items-center justify-center gap-2 text-accent font-bold pt-4">
-                            <CheckCircle className="w-5 h-5"/>
-                            <span>100% Satisfaction Guaranteed!</span>
-                        </div>
-                    </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center text-muted-foreground">
+                  <div className="flex flex-col items-center gap-2">
+                    <MapPin className="w-6 h-6 text-accent" />
+                    <p className="font-semibold">Delivering in Bengaluru<br />&amp; Across India</p>
+                  </div>
+                  <div className="flex flex-col items-center gap-2 sm:border-x sm:border-dashed sm:border-accent/50 px-4">
+                    <Clock className="w-6 h-6 text-accent" />
+                    <p className="font-semibold">Orders Dispatched<br />in 24 Hours</p>
+                  </div>
+                  <div className="flex flex-col items-center gap-2">
+                    <PhoneCall className="w-6 h-6 text-accent" />
+                    <p className="font-semibold">24/7 Customer Support</p>
+                  </div>
                 </div>
               </div>
+
+              <div className="border-t-2 border-dashed border-accent/50"></div>
+
+              <div className="grid md:grid-cols-2 items-center">
+                <div className="relative w-full h-64 md:h-full min-h-[300px] order-last md:order-first">
+                  {ctaSnacksImage && (
+                    <Image src={ctaSnacksImage.imageUrl} alt={ctaSnacksImage.description} fill className="object-cover" data-ai-hint={ctaSnacksImage.imageHint} />
+                  )}
+                </div>
+                <div className="p-8 text-center space-y-5">
+                  <h3 className="font-headline text-4xl text-foreground">Taste Authentic Karavali at Home</h3>
+                  <p className="text-xl font-semibold text-[#3A3A3A] dark:text-muted-foreground">Fresh. Authentic. Delivered.</p>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button asChild size="lg" className="rounded-lg text-lg px-8 py-6">
+                      <Link href="/category/all">Shop Now</Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="rounded-lg text-lg px-8 py-6 border-2 border-[#25D366] text-[#25D366] hover:bg-[#25D366] hover:text-white">
+                      <Link href={whatsappUrl} target="_blank">
+                        <WhatsAppIcon /> Order on WhatsApp
+                      </Link>
+                    </Button>
+                  </div>
+                  <div className="text-sm text-muted-foreground font-bold">
+                    ⭐ Trusted by 500+ families since 2007
+                  </div>
+                  <div className="flex items-center justify-center gap-2 text-accent font-bold pt-4">
+                    <CheckCircle className="w-5 h-5" />
+                    <span>100% Satisfaction Guaranteed!</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
         </div>
       </section>
-    </div>
+    </div >
   );
 }
