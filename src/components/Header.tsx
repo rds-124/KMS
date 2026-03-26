@@ -180,10 +180,9 @@ export default function Header() {
 
       <header
         className={cn(
-          "sticky top-0 z-40 hidden w-full md:block transition-transform duration-300 shadow-md",
+          "sticky top-0 z-40 hidden w-full md:block transition-transform duration-300 shadow-md bg-primary",
           showNav ? "translate-y-0" : "-translate-y-full"
         )}
-        style={{ backgroundColor: '#2E8A57' }}
       >
         <div className="flex h-16 items-center justify-between gap-4 px-8 text-primary-foreground">
 
@@ -238,7 +237,7 @@ export default function Header() {
               <DropdownMenu open={isCatOpen} onOpenChange={setIsCatOpen}>
                 <DropdownMenuTrigger asChild>
                   <button
-                    className="flex items-center gap-1.5 h-full pl-3 pr-3 bg-[#2E8A57] text-white text-sm font-medium whitespace-nowrap hover:brightness-90 transition-all flex-shrink-0 focus:outline-none"
+                    className="flex items-center gap-1.5 h-full pl-3 pr-3 bg-primary text-primary-foreground text-sm font-medium whitespace-nowrap hover:brightness-90 transition-all flex-shrink-0 focus:outline-none"
                     onMouseEnter={openCat}
                     onMouseLeave={scheduleCatClose}
                   >
@@ -297,7 +296,7 @@ export default function Header() {
               {/* ── Search button (right) ── */}
               <button
                 aria-label="Search"
-                className="flex items-center justify-center h-8 w-8 mr-1 rounded-full bg-[#2E8A57] text-white hover:brightness-90 transition-all flex-shrink-0 focus:outline-none"
+                className="flex items-center justify-center h-8 w-8 mr-1 rounded-full bg-primary text-primary-foreground hover:brightness-90 transition-all flex-shrink-0 focus:outline-none"
               >
                 <Search className="h-4 w-4" />
               </button>

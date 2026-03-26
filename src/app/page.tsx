@@ -92,7 +92,7 @@ export default function Home() {
                 </p>
 
                 <div className="pt-4">
-                  <Button asChild size="lg" className="h-16 px-12 text-xl font-bold rounded-xl bg-[#008744] hover:bg-[#007038] text-white border-none shadow-lg transition-all duration-500 hover:scale-110 active:scale-95">
+                  <Button asChild size="lg" className="h-16 px-12 text-xl font-bold rounded-xl bg-primary hover:bg-primary/90 text-white border-none shadow-lg transition-all duration-500 hover:scale-110 active:scale-95">
                     <Link href="/category/all">Shop Now</Link>
                   </Button>
                 </div>
@@ -144,7 +144,7 @@ export default function Home() {
                 Authentic Karavali &amp; Malnad heritage foods rooted in tradition and crafted with care.
               </p>
             </div>
-            <Button asChild size="lg" className="transform -translate-y-4 h-12 px-8 text-lg font-semibold rounded-2xl bg-[#008744] hover:bg-[#007038] text-white border-none shadow-[0_20px_50px_rgba(0,135,68,0.4)] transition-all duration-500 hover:scale-110 active:scale-95">
+            <Button asChild size="lg" className="transform -translate-y-4 h-12 px-8 text-lg font-semibold rounded-2xl bg-primary hover:bg-primary/90 text-white border-none shadow-[0_20px_50px_rgba(46,138,87,0.4)] transition-all duration-500 hover:scale-110 active:scale-95">
               <Link href="/category/all">Shop Now</Link>
             </Button>
           </div>
@@ -160,7 +160,7 @@ export default function Home() {
               <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-accent/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
                 <badge.icon className="h-6 w-6 text-accent sm:h-10 sm:w-10" />
               </div>
-              <h3 className="text-sm font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
+              <h3 className="font-headline text-sm font-bold text-foreground sm:text-lg md:text-xl">{badge.text}</h3>
               <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
             </div>
           ))}
@@ -186,7 +186,7 @@ export default function Home() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent group-hover:from-black/70 transition-colors" />
                 <div className="absolute bottom-0 left-0 w-full p-3 md:p-4">
-                  <h3 className="font-bold text-sm md:text-base text-white shadow-sm">{category.name}</h3>
+                  <h3 className="font-headline font-bold text-xl md:text-2xl text-white shadow-sm">{category.name}</h3>
                 </div>
               </Link>
             )
@@ -195,7 +195,7 @@ export default function Home() {
             <div className="flex items-center justify-center h-10 w-10 md:h-12 md:w-12 bg-white dark:bg-slate-800 rounded-full mb-2 shadow-md transition-transform duration-300 group-hover:scale-110">
               <ArrowRight className="h-5 w-5 md:h-6 md:w-6 text-accent" />
             </div>
-            <span className="font-bold text-sm md:text-base text-accent">See all</span>
+            <span className="font-bold text-xl md:text-2xl text-accent">See all</span>
           </Link>
         </div>
       </section>
@@ -287,7 +287,7 @@ export default function Home() {
                   <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 shadow-lg transition-transform group-hover:scale-105 sm:h-20 sm:w-20">
                     <badge.icon className="h-6 w-6 text-primary sm:h-10 sm:w-10" />
                   </div>
-                  <h3 className="font-bold text-sm sm:text-lg md:text-xl text-foreground">{badge.title}</h3>
+                  <h3 className="font-headline font-bold text-sm sm:text-lg md:text-xl text-foreground">{badge.title}</h3>
                   <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{badge.description}</p>
                 </div>
               ))}
@@ -354,7 +354,7 @@ export default function Home() {
                     </Button>
                   </div>
                   <div className="space-y-2">
-                    <div className="font-bold" style={{ color: '#57534E' }}>
+                    <div className="font-bold text-sm whitespace-nowrap" style={{ color: '#57534E' }}>
                       ⭐ Trusted by 1000+ families since 2007
                     </div>
                     <div className="flex items-center justify-center gap-2 text-accent font-bold">

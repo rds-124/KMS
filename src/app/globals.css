@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Alias: --font-barlow maps to Plus Jakarta Sans (our body/UI font) */
+:root {
+  --font-barlow: var(--font-plus-jakarta-sans);
+}
+
 @layer base {
   :root {
     --background: 36 50% 97%;

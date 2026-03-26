@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display, Noto_Sans, Roboto } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,32 +9,19 @@ import { FirebaseClientProvider } from "@/firebase/client-provider";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import "./globals.css";
 
-const inter = Inter({
+const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter",
-  weight: ["400", "700"],
+  variable: "--font-fraunces",
+  axes: ["opsz"],
+  weight: "variable",
 });
 
-const playfair_display = Playfair_Display({
+const plus_jakarta_sans = Plus_Jakarta_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-playfair-display",
-  weight: "700",
-});
-
-const noto_sans = Noto_Sans({
-    subsets: ['latin'],
-    variable: '--font-noto-sans',
-    weight: ['400', '700'],
-    display: 'swap',
-});
-
-const roboto = Roboto({
-    subsets: ['latin'],
-    variable: '--font-roboto',
-    weight: ['400', '700'],
-    display: 'swap',
+  variable: "--font-plus-jakarta-sans",
+  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -48,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair_display.variable} ${noto_sans.variable} ${roboto.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${fraunces.variable} ${plus_jakarta_sans.variable}`} suppressHydrationWarning>
       <body className="font-body antialiased">
         <ThemeProvider
           attribute="class"

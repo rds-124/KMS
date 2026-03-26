@@ -134,7 +134,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Product Details Section */}
         <div className="p-3 flex-grow flex flex-col">
-          <h3 className="font-semibold text-xs md:text-sm line-clamp-2 text-left flex-grow">{product.title}</h3>
+          <h3 className="font-headline font-bold text-base line-clamp-2 text-left flex-grow">{product.title}</h3>
         </div>
       </Link>
 
@@ -142,11 +142,11 @@ export default function ProductCard({ product }: ProductCardProps) {
       <div className="p-3 pt-0 mt-auto flex justify-between items-center gap-1">
         {/* Price */}
         <div className="flex flex-row items-baseline gap-0.5">
-          <p className={cn("font-bold price text-foreground", "text-sm md:text-base")}>
+          <p className={cn("font-bold price text-foreground", "text-base")}>
             ₹{product.sale_price ?? product.price}
           </p>
           {product.sale_price && (
-            <p className="text-xs text-muted-foreground mrp">
+            <p className="text-sm text-muted-foreground mrp">
               ₹{product.price}
             </p>
           )}
